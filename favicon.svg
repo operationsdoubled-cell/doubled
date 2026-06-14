@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="7" fill="#07070A"/>
+  <text
+    x="16" y="24"
+    text-anchor="middle"
+    font-family="'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif"
+    font-weight="900"
+    font-size="26"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="1.5"
+    stroke-linejoin="round"
+    paint-order="stroke fill"
+  >d</text>
+  <text
+    x="16" y="24"
+    text-anchor="middle"
+    font-family="'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif"
+    font-weight="900"
+    font-size="26"
+    fill="#ffffff"
+  >d</text>
+</svg>

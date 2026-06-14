@@ -15,26 +15,25 @@ const PORTFOLIO = [
   {
     title:    'PowerClean',
     category: 'Window Cleaning · Web Design',
-    image:    'assets/images/Screenshot 2026-06-14 at 17.34.41.png',
+    image:    'assets/images/powerclean-hero.png',
     bg:       'pbg-2',
-    featured: true,   // spans 2 columns
   },
   {
     title:    'Van & Man Removals',
     category: 'Removals · Web Design',
-    image:    'assets/images/Screenshot 2026-06-14 at 17.33.47.png',
+    image:    'assets/images/van-and-man-hero.png',
     bg:       'pbg-1',
   },
   {
     title:    'PowerClean — Services',
     category: 'Window Cleaning · Web Design',
-    image:    'assets/images/Screenshot 2026-06-14 at 17.35.06.png',
+    image:    'assets/images/powerclean-services.png',
     bg:       'pbg-3',
   },
   {
     title:    'Van & Man — Reviews',
     category: 'Removals · Web Design',
-    image:    'assets/images/Screenshot 2026-06-14 at 17.35.41.png',
+    image:    'assets/images/van-and-man-reviews.png',
     bg:       'pbg-4',
   },
   {
@@ -211,45 +210,80 @@ const PORTFOLIO = [
 })();
 
 /* ─────────────────────────────────────────────
-   CONTACT FORM
+   CONTACT FORM — Formspree
+   Submissions go to operations.doubled@gmail.com
+   Sign up at formspree.io, create a form, and
+   replace YOUR_FORM_ID below with your form ID.
    ───────────────────────────────────────────── */
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+
 (function initForm() {
   const form = document.getElementById('contact-form');
   const btn  = document.getElementById('submit-btn');
   if (!form || !btn) return;
 
-  form.addEventListener('submit', (e) => {
+  const setBtn = (text, bg, shadow) => {
+    btn.innerHTML        = text;
+    btn.style.background = bg    || '';
+    btn.style.boxShadow  = shadow || '';
+  };
+
+  const resetBtn = () => {
+    setTimeout(() => {
+      btn.disabled = false;
+      setBtn('Send Message <span class="btn-arrow">→</span>');
+    }, 5000);
+  };
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Basic validation
-    const required = form.querySelectorAll('[required]');
+    // Inline validation
     let valid = true;
-    required.forEach(field => {
+    form.querySelectorAll('[required]').forEach(field => {
       field.style.borderColor = '';
       if (!field.value.trim()) {
         field.style.borderColor = 'rgba(255,32,121,0.6)';
         valid = false;
       }
     });
-
     if (!valid) return;
 
-    // Success state
-    btn.disabled   = true;
-    btn.innerHTML  = 'Sent! We\'ll be in touch ✓';
-    btn.style.background = 'linear-gradient(135deg, #00FF88, #00C8FF)';
-    btn.style.boxShadow  = '0 8px 32px rgba(0,255,136,0.25)';
+    btn.disabled = true;
+    setBtn('Sending…');
 
-    setTimeout(() => {
-      btn.disabled   = false;
-      btn.innerHTML  = 'Send Message <span class="btn-arrow">→</span>';
-      btn.style.background = '';
-      btn.style.boxShadow  = '';
-      form.reset();
-    }, 4000);
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method:  'POST',
+        body:    new FormData(form),
+        headers: { 'Accept': 'application/json' },
+      });
+
+      if (res.ok) {
+        setBtn(
+          'Sent! We\'ll be in touch ✓',
+          'linear-gradient(135deg, #00FF88, #00C8FF)',
+          '0 8px 32px rgba(0,255,136,0.22)'
+        );
+        form.reset();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || 'Server error');
+      }
+    } catch (err) {
+      console.error('Form error:', err);
+      setBtn(
+        'Something went wrong — try again',
+        'linear-gradient(135deg, #FF2079, #FF6B00)',
+        '0 8px 32px rgba(255,32,121,0.2)'
+      );
+      btn.disabled = false;
+    }
+
+    resetBtn();
   });
 
-  // Clear error highlight on input
+  // Clear error highlight as user types
   form.querySelectorAll('input, textarea').forEach(field => {
     field.addEventListener('input', () => { field.style.borderColor = ''; });
   });
