@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doubled — Hypermodern Web Development</title>
+  <meta name="description" content="Doubled. Hypermodern web design and development studio. We build websites that convert.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <!-- ─── Navigation ─── -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-logo">
+      <img src="assets/brand/logo.png" alt="Doubled" class="nav-logo-img">
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ─── Hero ─── -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="hero-orb orb-purple"></div>
+      <div class="hero-orb orb-blue"></div>
+      <div class="hero-orb orb-pink"></div>
+      <div class="hero-orb orb-green"></div>
+      <div class="hero-grid"></div>
+      <div class="hero-noise"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Available for new projects
+      </div>
+
+      <h1 class="hero-title">
+        We build <span class="grad-text-1">websites</span><br>
+        that actually <span class="grad-text-2">convert.</span>
+      </h1>
+
+      <p class="hero-sub">
+        Hypermodern design. Blazing performance.<br>Digital experiences that grow your business.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#portfolio" class="btn btn-primary">View Our Work</a>
+        <a href="#contact" class="btn btn-ghost">Start a Project <span class="btn-arrow">→</span></a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num grad-text-1">50+</span>
+          <span class="stat-label">Projects Delivered</span>
+        </div>
+        <div class="stat-rule"></div>
+        <div class="stat">
+          <span class="stat-num grad-text-3">100%</span>
+          <span class="stat-label">Client Satisfaction</span>
+        </div>
+        <div class="stat-rule"></div>
+        <div class="stat">
+          <span class="stat-num grad-text-2">5★</span>
+          <span class="stat-label">Average Rating</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-d-mark" aria-hidden="true">
+      <img src="assets/brand/letterhead.png" alt="" class="hero-d-img">
+    </div>
+
+    <a href="#services" class="scroll-hint" aria-label="Scroll down">
+      <span class="scroll-label">Scroll</span>
+      <div class="scroll-bar"></div>
+    </a>
+  </section>
+
+  <!-- ─── Marquee ─── -->
+  <div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Web Design</span><span class="marquee-dot">·</span>
+      <span>Development</span><span class="marquee-dot">·</span>
+      <span>E-Commerce</span><span class="marquee-dot">·</span>
+      <span>Branding</span><span class="marquee-dot">·</span>
+      <span>SEO &amp; Performance</span><span class="marquee-dot">·</span>
+      <span>UI / UX</span><span class="marquee-dot">·</span>
+      <span>Web Design</span><span class="marquee-dot">·</span>
+      <span>Development</span><span class="marquee-dot">·</span>
+      <span>E-Commerce</span><span class="marquee-dot">·</span>
+      <span>Branding</span><span class="marquee-dot">·</span>
+      <span>SEO &amp; Performance</span><span class="marquee-dot">·</span>
+      <span>UI / UX</span><span class="marquee-dot">·</span>
+    </div>
+  </div>
+
+  <!-- ─── Services ─── -->
+  <section class="section services" id="services">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag tag-blue">What We Do</span>
+        <h2 class="section-title">Built to perform.<br>Designed to impress.</h2>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card reveal" data-color="blue">
+          <div class="service-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="8" width="32" height="24" rx="3" stroke="currentColor" stroke-width="2"/>
+              <path d="M4 14h32" stroke="currentColor" stroke-width="2"/>
+              <circle cx="9" cy="11" r="1.5" fill="currentColor"/>
+              <circle cx="14" cy="11" r="1.5" fill="currentColor"/>
+              <circle cx="19" cy="11" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3>Web Design &amp; Development</h3>
+          <p>Custom-built websites that fuse stunning visuals with bulletproof code. No templates, no shortcuts — just exceptional, hand-crafted digital experiences.</p>
+          <div class="service-stack">HTML · CSS · React · Next.js</div>
+        </div>
+
+        <div class="service-card reveal" data-color="purple">
+          <div class="service-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 4L4 12v16l16 8 16-8V12L20 4z" stroke="currentColor" stroke-width="2"/>
+              <path d="M4 12l16 8 16-8" stroke="currentColor" stroke-width="2"/>
+              <path d="M20 20v16" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <h3>E-Commerce Solutions</h3>
+          <p>High-converting online stores built on Shopify, WooCommerce, or fully custom stacks. Seamless checkout flows that turn browsers into buyers.</p>
+          <div class="service-stack">Shopify · WooCommerce · Custom</div>
+        </div>
+
+        <div class="service-card reveal" data-color="green">
+          <div class="service-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="14" stroke="currentColor" stroke-width="2"/>
+              <path d="M20 6c0 0-8 6-8 14s8 14 8 14" stroke="currentColor" stroke-width="2"/>
+              <path d="M20 6c0 0 8 6 8 14s-8 14-8 14" stroke="currentColor" stroke-width="2"/>
+              <path d="M6 20h28" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <h3>SEO &amp; Performance</h3>
+          <p>Sub-second load times and top-tier Core Web Vitals scores. We build for speed from the ground up, putting you at the top of Google.</p>
+          <div class="service-stack">Core Web Vitals · Schema · Analytics</div>
+        </div>
+
+        <div class="service-card reveal" data-color="pink">
+          <div class="service-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 30l8-8 6 6 10-14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="28" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <h3>Branding &amp; Identity</h3>
+          <p>Distinctive logos, colour systems, and complete brand kits that give your business a memorable, cohesive identity across every touchpoint.</p>
+          <div class="service-stack">Logo · Colour · Typography · Brand Kit</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Portfolio ─── -->
+  <section class="section portfolio" id="portfolio">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag tag-purple">Our Work</span>
+        <h2 class="section-title">Projects we're<br>proud of.</h2>
+      </div>
+
+      <div class="portfolio-reel-wrap">
+        <div class="portfolio-reel" id="portfolio-reel">
+          <!-- Populated by js/main.js -->
+        </div>
+      </div>
+
+      <div class="portfolio-cta reveal">
+        <a href="#contact" class="btn btn-primary">Start Your Project</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── About ─── -->
+  <section class="section about" id="about">
+    <div class="container about-inner">
+      <div class="about-visual reveal">
+        <div class="about-logo-ring">
+          <div class="ring-glow"></div>
+          <div class="ring-border"></div>
+          <img src="assets/brand/logo.png" alt="Doubled" class="about-logo">
+        </div>
+      </div>
+
+      <div class="about-copy reveal">
+        <span class="section-tag tag-green">About Us</span>
+        <h2 class="section-title">Doubled.<br>Not your average agency.</h2>
+        <p>We're a tight-knit team of designers and developers obsessed with building exceptional digital experiences. Every project gets our full attention — no junior hand-offs, no bloated processes.</p>
+        <p>From startups to established businesses, we deliver websites that look incredible, load fast, and actually grow your bottom line.</p>
+
+        <div class="about-pills">
+          <span class="pill">Next.js</span>
+          <span class="pill">React</span>
+          <span class="pill">Shopify</span>
+          <span class="pill">Webflow</span>
+          <span class="pill">Figma</span>
+          <span class="pill">Framer</span>
+          <span class="pill">TypeScript</span>
+          <span class="pill">Node.js</span>
+          <span class="pill">Tailwind</span>
+          <span class="pill">GSAP</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Contact ─── -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="contact-card reveal">
+        <div class="contact-orb contact-orb-1"></div>
+        <div class="contact-orb contact-orb-2"></div>
+
+        <div class="contact-head">
+          <span class="section-tag tag-pink">Get In Touch</span>
+          <h2 class="contact-title">Ready to build<br>something great?</h2>
+          <p class="contact-sub">Tell us about your project and we'll get back to you within 24 hours.</p>
+        </div>
+
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Your Name" required autocomplete="name">
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" name="project" placeholder="Project type (e.g. E-commerce, Portfolio, SaaS)">
+          </div>
+          <div class="form-group">
+            <textarea name="message" placeholder="Tell us about your project..." rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-submit" id="submit-btn">
+            Send Message <span class="btn-arrow">→</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ─── -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <img src="assets/brand/logo.png" alt="Doubled" class="footer-logo">
+      <p class="footer-copy">© 2026 Doubled. All rights reserved.</p>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="#services">Services</a>
+        <a href="#portfolio">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
