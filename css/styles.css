@@ -774,18 +774,11 @@ h1, h2, h3, h4 {
 }
 
 .reel-item:hover {
-  transform: scale(1.13);
+  transform: scale(1.08);
   box-shadow:
-    0 32px 88px rgba(0, 0, 0, 0.75),
-    0 0 0 1px rgba(255, 255, 255, 0.13),
-    0 0 64px rgba(0, 200, 255, 0.07);
+    0 24px 64px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
   z-index: 10;
-}
-
-/* Spotlight — dim siblings when one card is hovered */
-.portfolio-reel:has(.reel-item:hover) .reel-item:not(:hover) {
-  opacity: 0.42;
-  filter: brightness(0.55) saturate(0.65);
 }
 
 /* Blurred atmospheric fill — shows behind contain images so no black gap */
@@ -816,34 +809,6 @@ h1, h2, h3, h4 {
   object-position: top center;
 }
 
-/* Title overlay on hover */
-.reel-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.15) 55%, transparent 100%);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 24px;
-  opacity: 0;
-  transition: opacity .3s var(--ease);
-}
-
-.reel-item:hover .reel-overlay { opacity: 1; }
-
-.reel-overlay h3 {
-  font-size: 18px;
-  color: #fff;
-  margin-bottom: 4px;
-}
-
-.reel-overlay span {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.55);
-}
 
 /* Placeholder card */
 .reel-placeholder {

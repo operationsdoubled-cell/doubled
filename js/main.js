@@ -56,10 +56,6 @@ const PORTFOLIO = [
       el.innerHTML = `
         ${bg}
         <img src="${item.image}" alt="${item.title}" loading="lazy" draggable="false"${item.contain ? ' class="img-contain"' : ''}>
-        <div class="reel-overlay">
-          <h3>${item.title}</h3>
-          <span>${item.category}</span>
-        </div>
       `;
     } else {
       el.innerHTML = `
@@ -135,12 +131,14 @@ const PORTFOLIO = [
     resumeFrom(endX);
   });
 
-  // Pause on hover (when not mid-drag)
-  wrap.addEventListener('mouseenter', () => {
-    if (!isDragging) reel.style.animationPlayState = 'paused';
+  // Pause on card hover — event delegation so clones work too
+  reel.addEventListener('mouseover', (e) => {
+    if (!isDragging && e.target.closest('.reel-item'))
+      reel.style.animationPlayState = 'paused';
   });
-  wrap.addEventListener('mouseleave', () => {
-    if (!isDragging) reel.style.animationPlayState = 'running';
+  reel.addEventListener('mouseout', (e) => {
+    if (!isDragging && !e.relatedTarget?.closest('.reel-item'))
+      reel.style.animationPlayState = 'running';
   });
 })();
 
