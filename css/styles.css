@@ -719,11 +719,13 @@ h1, h2, h3, h4 {
 /* ─── Portfolio ─── */
 .portfolio { background: var(--bg); }
 
-/* Reel outer — clips horizontal overflow, fades edges */
+/* Reel outer — drag-scrollable, fades edges */
 .portfolio-reel-wrap {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   padding: 52px 0;
-  cursor: none;
+  cursor: grab;
+  scrollbar-width: none;
   mask-image: linear-gradient(
     to right,
     transparent 0%,
@@ -740,19 +742,14 @@ h1, h2, h3, h4 {
   );
 }
 
-/* Pause scroll while mouse is anywhere on the reel */
-.portfolio-reel-wrap:hover .portfolio-reel {
-  animation-play-state: paused;
-}
+.portfolio-reel-wrap::-webkit-scrollbar { display: none; }
+.portfolio-reel-wrap.dragging { cursor: grabbing; }
+.portfolio-reel-wrap.dragging .reel-item { pointer-events: none; }
 
 .portfolio-reel {
   display: flex;
   width: max-content;
-  animation: reel-scroll 35s linear infinite;
-}
-
-@keyframes reel-scroll {
-  to { transform: translateX(-50%); }
+  padding: 0 40px;
 }
 
 /* Individual reel card */
@@ -766,7 +763,7 @@ h1, h2, h3, h4 {
   overflow: hidden;
   border: 1px solid var(--border);
   background: var(--surface-2);
-  cursor: none;
+  cursor: inherit;
   z-index: 1;
   transition:
     transform   .45s var(--ease-spring),

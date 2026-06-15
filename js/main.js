@@ -13,10 +13,10 @@
    ───────────────────────────────────────────── */
 const PORTFOLIO = [
   {
-    title:    'PowerClean',
-    category: 'Window Cleaning · Web Design',
-    image:    'assets/images/powerclean-hero.png',
-    bg:       'pbg-2',
+    title:    'Alltree',
+    category: 'Tree Services · Web Design',
+    image:    'assets/images/alltree.png',
+    bg:       'pbg-3',
   },
   {
     title:    'Van & Man Removals',
@@ -25,35 +25,20 @@ const PORTFOLIO = [
     bg:       'pbg-1',
   },
   {
-    title:    'PowerClean — Services',
+    title:    'PowerClean',
     category: 'Window Cleaning · Web Design',
-    image:    'assets/images/powerclean-services.png',
-    bg:       'pbg-3',
-  },
-  {
-    title:    'Van & Man — Reviews',
-    category: 'Removals · Web Design',
-    image:    'assets/images/van-and-man-reviews.png',
-    bg:       'pbg-4',
-  },
-  {
-    title:    'Your Next Project',
-    category: 'Coming Soon',
-    image:    null,
-    bg:       'pbg-5',
+    image:    'assets/images/powerclean-hero.png',
+    bg:       'pbg-2',
   },
 ];
 
 /* ─────────────────────────────────────────────
-   BUILD PORTFOLIO REEL (infinite horizontal scroll)
+   BUILD PORTFOLIO REEL (drag-to-scroll)
    ───────────────────────────────────────────── */
 (function buildPortfolio() {
+  const wrap = document.querySelector('.portfolio-reel-wrap');
   const reel = document.getElementById('portfolio-reel');
-  if (!reel) return;
-
-  const ITEM_W   = 480; // px — must match CSS .reel-item width
-  const ITEM_GAP = 20;  // px — must match CSS .reel-item margin-right
-  const SPEED    = 80;  // px per second
+  if (!reel || !wrap) return;
 
   function createItem(item) {
     const el = document.createElement('div');
@@ -81,21 +66,27 @@ const PORTFOLIO = [
     return el;
   }
 
-  // Build the original set
   PORTFOLIO.forEach(item => reel.appendChild(createItem(item)));
 
-  // Duplicate every item for a seamless infinite loop.
-  // With margin-right on every item, -50% translateX lands exactly
-  // at the start of the second set, creating a perfect loop.
-  [...reel.children].forEach(el => {
-    const clone = el.cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true');
-    reel.appendChild(clone);
-  });
+  // Drag-to-scroll
+  let isDown = false;
+  let startX, scrollLeft;
 
-  // Drive speed from item count so adding more items keeps pace consistent
-  const oneSetWidth = PORTFOLIO.length * (ITEM_W + ITEM_GAP);
-  reel.style.animationDuration = `${(oneSetWidth / SPEED).toFixed(1)}s`;
+  wrap.addEventListener('mousedown', (e) => {
+    isDown     = true;
+    startX     = e.pageX - wrap.offsetLeft;
+    scrollLeft = wrap.scrollLeft;
+    wrap.classList.add('dragging');
+  });
+  wrap.addEventListener('mouseleave', () => { isDown = false; wrap.classList.remove('dragging'); });
+  wrap.addEventListener('mouseup',    () => { isDown = false; wrap.classList.remove('dragging'); });
+  wrap.addEventListener('mousemove',  (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x    = e.pageX - wrap.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    wrap.scrollLeft = scrollLeft - walk;
+  });
 })();
 
 /* ─────────────────────────────────────────────
