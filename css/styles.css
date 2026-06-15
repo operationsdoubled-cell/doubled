@@ -719,22 +719,23 @@ h1, h2, h3, h4 {
 /* ─── Portfolio ─── */
 .portfolio { background: var(--bg); }
 
-/* Reel outer — horizontal drag scroll, fades edges */
+/* Reel outer — overflow hidden so CSS-transform loop works */
 .portfolio-reel-wrap {
-  overflow-x: auto;
-  overflow-y: visible;
-  padding: 52px 40px;
+  overflow: hidden;
+  padding: 52px 0;
   cursor: grab;
-  scrollbar-width: none;
 }
-.portfolio-reel-wrap::-webkit-scrollbar { display: none; }
-.portfolio-reel-wrap.dragging           { cursor: grabbing; }
+.portfolio-reel-wrap.dragging            { cursor: grabbing; }
 .portfolio-reel-wrap.dragging .reel-item { pointer-events: none; user-select: none; }
 
 .portfolio-reel {
   display: flex;
-  gap: 20px;
   width: max-content;
+  animation: reel-scroll 25s linear infinite;
+}
+
+@keyframes reel-scroll {
+  to { transform: translateX(-50%); }
 }
 
 /* Individual reel card */
@@ -743,6 +744,7 @@ h1, h2, h3, h4 {
   width: 480px;
   aspect-ratio: 4 / 3;
   flex-shrink: 0;
+  margin-right: 20px;
   border-radius: var(--r-lg);
   overflow: hidden;
   border: 1px solid var(--border);

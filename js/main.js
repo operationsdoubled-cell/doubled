@@ -3,32 +3,68 @@
    ════════════════════════════════════════════ */
 
 /* ─────────────────────────────────────────────
-   PORTFOLIO REEL — drag-to-scroll
+   PORTFOLIO REEL — auto-scroll + drag
    ───────────────────────────────────────────── */
 (function initReel() {
   const wrap = document.querySelector('.portfolio-reel-wrap');
-  if (!wrap) return;
+  const reel = document.getElementById('portfolio-reel');
+  if (!wrap || !reel) return;
 
-  let isDown    = false;
-  let startX    = 0;
-  let scrollOrigin = 0;
+  const SPEED = 60; // px per second
+
+  // Tune duration to actual rendered width so speed stays constant
+  requestAnimationFrame(() => {
+    const half = reel.scrollWidth / 2;
+    reel.style.animationDuration = `${(half / SPEED).toFixed(1)}s`;
+  });
+
+  let isDragging = false;
+  let startX     = 0;
+  let startTX    = 0; // translateX when drag began
+
+  // Resume the CSS animation from a given translateX position
+  function resumeFrom(x) {
+    const half     = reel.scrollWidth / 2;
+    const duration = parseFloat(reel.style.animationDuration);
+    const pos      = ((-x % half) + half) % half;        // normalise into [0, half)
+    const delay    = -((pos / half) * duration);          // negative = already elapsed
+    reel.style.transform = '';
+    reel.style.animation = `reel-scroll ${duration}s ${delay}s linear infinite`;
+  }
 
   wrap.addEventListener('mousedown', (e) => {
-    isDown       = true;
-    startX       = e.clientX;
-    scrollOrigin = wrap.scrollLeft;
+    isDragging = true;
+    startX     = e.clientX;
+    // Read current animated position BEFORE killing the animation
+    startTX    = new DOMMatrix(getComputedStyle(reel).transform).m41;
+    // Kill animation so inline transform isn't overridden by it
+    reel.style.animation = 'none';
+    reel.style.transform = `translateX(${startTX}px)`;
     wrap.classList.add('dragging');
   });
 
   document.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
+    if (!isDragging) return;
     e.preventDefault();
-    wrap.scrollLeft = scrollOrigin - (e.clientX - startX);
+    reel.style.transform = `translateX(${startTX + (e.clientX - startX)}px)`;
   });
 
   document.addEventListener('mouseup', () => {
-    isDown = false;
+    if (!isDragging) return;
+    isDragging = false;
     wrap.classList.remove('dragging');
+    // Read position from inline style (animation is 'none' so computed = inline)
+    resumeFrom(new DOMMatrix(reel.style.transform).m41);
+  });
+
+  // Pause scroll while hovering a card
+  reel.addEventListener('mouseover', (e) => {
+    if (!isDragging && e.target.closest('.reel-item'))
+      reel.style.animationPlayState = 'paused';
+  });
+  reel.addEventListener('mouseout', (e) => {
+    if (!isDragging && !e.relatedTarget?.closest('.reel-item'))
+      reel.style.animationPlayState = 'running';
   });
 })();
 
