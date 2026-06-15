@@ -3,71 +3,32 @@
    ════════════════════════════════════════════ */
 
 /* ─────────────────────────────────────────────
-   PORTFOLIO REEL — infinite scroll + drag
-   Images are in index.html; this only handles
-   animation timing, drag, and hover-pause.
+   PORTFOLIO REEL — drag-to-scroll
    ───────────────────────────────────────────── */
 (function initReel() {
   const wrap = document.querySelector('.portfolio-reel-wrap');
-  const reel = document.getElementById('portfolio-reel');
-  if (!reel || !wrap) return;
+  if (!wrap) return;
 
-  const SPEED = 60; // px per second
-
-  // Set duration from actual rendered half-width
-  requestAnimationFrame(() => {
-    const halfWidth = reel.scrollWidth / 2;
-    reel.style.animationDuration = `${(halfWidth / SPEED).toFixed(1)}s`;
-  });
-
-  // ── Drag ────────────────────────────────────
-  let isDragging = false;
-  let dragStartX = 0;
-  let frozenX    = 0;
-
-  function getTranslateX() {
-    return new DOMMatrix(getComputedStyle(reel).transform).m41;
-  }
-
-  function resumeFrom(x) {
-    const halfWidth = reel.scrollWidth / 2;
-    const duration  = parseFloat(reel.style.animationDuration);
-    const pos   = ((-x % halfWidth) + halfWidth) % halfWidth;
-    const delay = -((pos / halfWidth) * duration);
-    reel.style.transform         = '';
-    reel.style.animationDelay    = `${delay}s`;
-    reel.style.animationPlayState = 'running';
-  }
+  let isDown    = false;
+  let startX    = 0;
+  let scrollOrigin = 0;
 
   wrap.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    dragStartX = e.clientX;
-    frozenX    = getTranslateX();
-    reel.style.animationPlayState = 'paused';
+    isDown       = true;
+    startX       = e.clientX;
+    scrollOrigin = wrap.scrollLeft;
     wrap.classList.add('dragging');
   });
 
   document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
+    if (!isDown) return;
     e.preventDefault();
-    reel.style.transform = `translateX(${frozenX + (e.clientX - dragStartX)}px)`;
+    wrap.scrollLeft = scrollOrigin - (e.clientX - startX);
   });
 
   document.addEventListener('mouseup', () => {
-    if (!isDragging) return;
-    isDragging = false;
+    isDown = false;
     wrap.classList.remove('dragging');
-    resumeFrom(new DOMMatrix(getComputedStyle(reel).transform).m41);
-  });
-
-  // ── Hover pause ─────────────────────────────
-  reel.addEventListener('mouseover', (e) => {
-    if (!isDragging && e.target.closest('.reel-item'))
-      reel.style.animationPlayState = 'paused';
-  });
-  reel.addEventListener('mouseout', (e) => {
-    if (!isDragging && !e.relatedTarget?.closest('.reel-item'))
-      reel.style.animationPlayState = 'running';
   });
 })();
 
