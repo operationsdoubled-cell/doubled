@@ -781,19 +781,7 @@ h1, h2, h3, h4 {
   z-index: 10;
 }
 
-/* Blurred atmospheric fill — shows behind contain images so no black gap */
-.reel-bg {
-  position: absolute;
-  inset: -12%;
-  background-size: cover;
-  background-position: top center;
-  filter: blur(22px) brightness(0.28) saturate(1.4);
-  z-index: 0;
-}
-
 .reel-item img {
-  position: relative;
-  z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -802,11 +790,6 @@ h1, h2, h3, h4 {
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
-}
-
-.reel-item img.img-contain {
-  object-fit: contain;
-  object-position: top center;
 }
 
 

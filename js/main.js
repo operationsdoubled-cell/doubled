@@ -3,96 +3,27 @@
    ════════════════════════════════════════════ */
 
 /* ─────────────────────────────────────────────
-   PORTFOLIO CONFIG
-   Add your screenshots here. Each entry needs:
-     title    — project name shown on hover
-     category — type label shown on hover
-     image    — path relative to index.html
-                e.g. 'assets/portfolio/project-1.jpg'
-                Set to null to show a placeholder.
+   PORTFOLIO REEL — infinite scroll + drag
+   Images are in index.html; this only handles
+   animation timing, drag, and hover-pause.
    ───────────────────────────────────────────── */
-const PORTFOLIO = [
-  {
-    title:    'Alltree',
-    category: 'Tree Services · Web Design',
-    image:    'assets/images/alltree.png',
-    bg:       'pbg-3',
-    contain:  true,
-  },
-  {
-    title:    'Van & Man Removals',
-    category: 'Removals · Web Design',
-    image:    'assets/images/van-and-man-hero.png',
-    bg:       'pbg-1',
-    contain:  true,
-  },
-  {
-    title:    'PowerClean',
-    category: 'Window Cleaning · Web Design',
-    image:    'assets/images/powerclean-hero.png',
-    bg:       'pbg-2',
-  },
-];
-
-/* ─────────────────────────────────────────────
-   BUILD PORTFOLIO REEL (CSS auto-scroll + drag)
-   ───────────────────────────────────────────── */
-(function buildPortfolio() {
+(function initReel() {
   const wrap = document.querySelector('.portfolio-reel-wrap');
   const reel = document.getElementById('portfolio-reel');
   if (!reel || !wrap) return;
 
   const SPEED = 60; // px per second
 
-  function createItem(item) {
-    const el = document.createElement('div');
-    el.className = 'reel-item';
-
-    if (item.image) {
-      // Blurred atmospheric fill behind contain images — eliminates dark gap
-      const bg = item.contain
-        ? `<div class="reel-bg" style="background-image:url('${item.image}')"></div>`
-        : '';
-      el.innerHTML = `
-        ${bg}
-        <img src="${item.image}" alt="${item.title}" loading="lazy" draggable="false"${item.contain ? ' class="img-contain"' : ''}>
-      `;
-    } else {
-      el.innerHTML = `
-        <div class="reel-placeholder ${item.bg}">
-          <div class="placeholder-inner">
-            <div class="placeholder-plus">+</div>
-            <span class="placeholder-label">Coming Soon</span>
-          </div>
-        </div>
-      `;
-    }
-
-    return el;
-  }
-
-  // Build original set + clone for seamless CSS-transform loop
-  PORTFOLIO.forEach(item => reel.appendChild(createItem(item)));
-  [...reel.children].forEach(el => {
-    const clone = el.cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true');
-    reel.appendChild(clone);
-  });
-
-  // Set animation duration from actual rendered width
+  // Set duration from actual rendered half-width
   requestAnimationFrame(() => {
-    const halfWidth  = reel.scrollWidth / 2;
-    const duration   = (halfWidth / SPEED).toFixed(1);
-    reel.style.animationDuration = `${duration}s`;
+    const halfWidth = reel.scrollWidth / 2;
+    reel.style.animationDuration = `${(halfWidth / SPEED).toFixed(1)}s`;
   });
 
-  // ── Drag support ──────────────────────────────
-  // We freeze the CSS animation, track the drag offset, then resume
-  // using a negative animation-delay that matches the paused position.
-
-  let isDragging  = false;
-  let dragStartX  = 0;
-  let frozenX     = 0; // translateX value when drag began
+  // ── Drag ────────────────────────────────────
+  let isDragging = false;
+  let dragStartX = 0;
+  let frozenX    = 0;
 
   function getTranslateX() {
     return new DOMMatrix(getComputedStyle(reel).transform).m41;
@@ -101,11 +32,10 @@ const PORTFOLIO = [
   function resumeFrom(x) {
     const halfWidth = reel.scrollWidth / 2;
     const duration  = parseFloat(reel.style.animationDuration);
-    // Map x (negative) → position within [0, halfWidth]
     const pos   = ((-x % halfWidth) + halfWidth) % halfWidth;
     const delay = -((pos / halfWidth) * duration);
-    reel.style.transform        = '';
-    reel.style.animationDelay   = `${delay}s`;
+    reel.style.transform         = '';
+    reel.style.animationDelay    = `${delay}s`;
     reel.style.animationPlayState = 'running';
   }
 
@@ -127,11 +57,10 @@ const PORTFOLIO = [
     if (!isDragging) return;
     isDragging = false;
     wrap.classList.remove('dragging');
-    const endX = new DOMMatrix(getComputedStyle(reel).transform).m41;
-    resumeFrom(endX);
+    resumeFrom(new DOMMatrix(getComputedStyle(reel).transform).m41);
   });
 
-  // Pause on card hover — event delegation so clones work too
+  // ── Hover pause ─────────────────────────────
   reel.addEventListener('mouseover', (e) => {
     if (!isDragging && e.target.closest('.reel-item'))
       reel.style.animationPlayState = 'paused';
