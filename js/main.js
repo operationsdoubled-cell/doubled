@@ -33,12 +33,16 @@ const PORTFOLIO = [
 ];
 
 /* ─────────────────────────────────────────────
-   BUILD PORTFOLIO REEL (drag-to-scroll)
+   BUILD PORTFOLIO REEL (auto-scroll + drag)
    ───────────────────────────────────────────── */
 (function buildPortfolio() {
   const wrap = document.querySelector('.portfolio-reel-wrap');
   const reel = document.getElementById('portfolio-reel');
   if (!reel || !wrap) return;
+
+  const ITEM_W   = 480;
+  const ITEM_GAP = 20;
+  const SPEED    = 60; // px per second
 
   function createItem(item) {
     const el = document.createElement('div');
@@ -66,7 +70,41 @@ const PORTFOLIO = [
     return el;
   }
 
+  // Build original set + clone for seamless loop
   PORTFOLIO.forEach(item => reel.appendChild(createItem(item)));
+  [...reel.children].forEach(el => {
+    const clone = el.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    reel.appendChild(clone);
+  });
+
+  const oneSetWidth = PORTFOLIO.length * (ITEM_W + ITEM_GAP);
+
+  // Auto-scroll via RAF — paused while hovering/dragging
+  let paused = false;
+  let lastTs = null;
+
+  function tick(ts) {
+    if (!paused) {
+      if (lastTs !== null) {
+        wrap.scrollLeft += SPEED * (ts - lastTs) / 1000;
+        if (wrap.scrollLeft >= oneSetWidth) wrap.scrollLeft -= oneSetWidth;
+      }
+      lastTs = ts;
+    } else {
+      lastTs = null;
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  // Pause auto-scroll on hover; resume on leave
+  wrap.addEventListener('mouseenter', () => { paused = true; });
+  wrap.addEventListener('mouseleave', () => {
+    paused = false;
+    isDown = false;
+    wrap.classList.remove('dragging');
+  });
 
   // Drag-to-scroll
   let isDown = false;
@@ -78,9 +116,8 @@ const PORTFOLIO = [
     scrollLeft = wrap.scrollLeft;
     wrap.classList.add('dragging');
   });
-  wrap.addEventListener('mouseleave', () => { isDown = false; wrap.classList.remove('dragging'); });
-  wrap.addEventListener('mouseup',    () => { isDown = false; wrap.classList.remove('dragging'); });
-  wrap.addEventListener('mousemove',  (e) => {
+  wrap.addEventListener('mouseup', () => { isDown = false; wrap.classList.remove('dragging'); });
+  wrap.addEventListener('mousemove', (e) => {
     if (!isDown) return;
     e.preventDefault();
     const x    = e.pageX - wrap.offsetLeft;

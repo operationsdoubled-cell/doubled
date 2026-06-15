@@ -749,7 +749,6 @@ h1, h2, h3, h4 {
 .portfolio-reel {
   display: flex;
   width: max-content;
-  padding: 0 40px;
 }
 
 /* Individual reel card */
@@ -791,6 +790,7 @@ h1, h2, h3, h4 {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
   display: block;
   pointer-events: none;
   user-select: none;
