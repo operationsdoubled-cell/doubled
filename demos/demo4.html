@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Golden Loaf — Artisan Bakery & Café</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #fdf8f0;
+      --warm-white: #fff9f0;
+      --brown: #3d2314;
+      --mid-brown: #7a4f2e;
+      --light-brown: #c49a6c;
+      --tan: #e8d5b7;
+      --rust: #c4522a;
+      --green: #4a6741;
+      --light-green: #e8efe7;
+      --text: #2e1b0e;
+      --muted: #8a6a50;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 60px;
+      height: 72px;
+      background: rgba(253,248,240,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--tan);
+    }
+
+    .logo {
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--brown);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+
+    .logo span { color: var(--rust); }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--brown); }
+
+    .nav-cta {
+      text-decoration: none;
+      background: var(--rust);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 11px 24px;
+      border-radius: 100px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .nav-cta:hover { background: #a83e1f; transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 72px;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 64px;
+      background: var(--cream);
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--light-green);
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 16px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+      width: fit-content;
+    }
+
+    .hero-tag::before { content: '🌿'; }
+
+    h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(44px, 5.5vw, 76px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--brown);
+      margin-bottom: 24px;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--rust);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.8;
+      margin-bottom: 44px;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-rust {
+      display: inline-block;
+      text-decoration: none;
+      background: var(--rust);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 15px 32px;
+      border-radius: 100px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-rust:hover { background: #a83e1f; transform: translateY(-2px); }
+
+    .btn-outline-brown {
+      display: inline-block;
+      text-decoration: none;
+      border: 2px solid var(--tan);
+      color: var(--brown);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 13px 28px;
+      border-radius: 100px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-outline-brown:hover { border-color: var(--light-brown); background: rgba(196,154,108,0.06); }
+
+    .hero-perks {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 40px;
+      border-top: 1px solid var(--tan);
+    }
+
+    .hero-perk {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .hero-perk-icon { font-size: 20px; }
+
+    .hero-right {
+      background: var(--tan);
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+    }
+
+    .hero-img-cell {
+      overflow: hidden;
+    }
+
+    .hero-img-cell .fill {
+      width: 100%;
+      height: 100%;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .hero-img-cell:hover .fill { transform: scale(1.05); }
+
+    .fill-1 { background: linear-gradient(160deg, #d4a96a 0%, #8b5e3c 100%); }
+    .fill-2 { background: linear-gradient(160deg, #c9a05a 0%, #7a4f2e 100%); }
+    .fill-3 { background: linear-gradient(160deg, #e0be88 0%, #a06c3a 100%); }
+    .fill-4 { background: linear-gradient(160deg, #c4b090 0%, #8a6040 100%); }
+
+    .fill-emoji {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      opacity: 0.35;
+    }
+
+    /* MENU BAND */
+    .opening-band {
+      background: var(--brown);
+      padding: 0 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      min-height: 72px;
+    }
+
+    .opening-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+    }
+
+    .opening-item strong { color: var(--tan); }
+
+    .opening-item-icon { font-size: 18px; }
+
+    /* MARQUEE */
+    .marquee-wrapper {
+      overflow: hidden;
+      background: var(--rust);
+      padding: 13px 0;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee 22s linear infinite;
+    }
+
+    .marquee-item {
+      font-family: 'Lora', serif;
+      font-size: 14px;
+      font-style: italic;
+      color: rgba(255,255,255,0.9);
+      padding: 0 24px;
+    }
+
+    .marquee-item::after {
+      content: '✦';
+      margin-left: 24px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* SECTION BASE */
+    section { padding: 96px 60px; }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--rust);
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--brown);
+      letter-spacing: -0.01em;
+    }
+
+    .section-title em { font-style: italic; color: var(--rust); }
+
+    .section-sub {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 520px;
+      margin-top: 16px;
+    }
+
+    /* ABOUT */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      background: var(--warm-white);
+    }
+
+    .about-image {
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      position: relative;
+    }
+
+    .about-image .fill { width: 100%; height: 100%; }
+    .about-image .fill-main { background: linear-gradient(160deg, #e0be88 0%, #8b5e3c 100%); }
+    .about-image .fill-emoji { font-size: 100px; opacity: 0.3; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+
+    .about-floating-card {
+      position: absolute;
+      bottom: 28px;
+      right: -20px;
+      background: var(--cream);
+      border-radius: 16px;
+      padding: 20px 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+      width: 180px;
+    }
+
+    .about-floating-card .num {
+      font-family: 'Lora', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--rust);
+      line-height: 1;
+    }
+
+    .about-floating-card .label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .about-text .divider {
+      width: 40px;
+      height: 3px;
+      background: var(--rust);
+      border-radius: 2px;
+      margin: 24px 0;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 16px;
+      font-size: 15px;
+    }
+
+    .values-list { list-style: none; margin-top: 28px; }
+
+    .values-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--tan);
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .values-list li::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--rust);
+      flex-shrink: 0;
+    }
+
+    /* MENU */
+    .menu-section { background: var(--cream); }
+
+    .menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 52px;
+    }
+
+    .menu-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 40px;
+      border-bottom: 2px solid var(--tan);
+      padding-bottom: 0;
+    }
+
+    .menu-tab {
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .menu-tab.active {
+      color: var(--rust);
+      border-color: var(--rust);
+    }
+
+    .menu-tab:hover { color: var(--brown); }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .menu-card {
+      background: var(--warm-white);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--tan);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(61,35,20,0.08);
+    }
+
+    .menu-img {
+      height: 180px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-card:nth-child(1) .menu-img { background: linear-gradient(135deg, #d4a96a, #8b5e3c); }
+    .menu-card:nth-child(2) .menu-img { background: linear-gradient(135deg, #c9b090, #7a5030); }
+    .menu-card:nth-child(3) .menu-img { background: linear-gradient(135deg, #e0c080, #a06030); }
+    .menu-card:nth-child(4) .menu-img { background: linear-gradient(135deg, #b8c880, #4a6740); }
+    .menu-card:nth-child(5) .menu-img { background: linear-gradient(135deg, #d4b090, #9a6040); }
+    .menu-card:nth-child(6) .menu-img { background: linear-gradient(135deg, #c0a870, #704020); }
+
+    .menu-img-emoji {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      opacity: 0.5;
+    }
+
+    .menu-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--rust);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+
+    .menu-body { padding: 20px 22px; }
+
+    .menu-name {
+      font-family: 'Lora', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: 6px;
+    }
+
+    .menu-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+
+    .menu-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .menu-price {
+      font-family: 'Lora', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--rust);
+    }
+
+    .menu-allergens { font-size: 11px; color: var(--muted); }
+
+    /* TESTIMONIALS */
+    .testimonials { background: var(--light-green); }
+
+    .testimonials-header { text-align: center; margin-bottom: 52px; }
+    .testimonials-header .section-sub { margin: 16px auto 0; }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .tcard {
+      background: var(--cream);
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid rgba(74,103,65,0.12);
+      transition: transform 0.25s;
+    }
+
+    .tcard:hover { transform: translateY(-3px); }
+
+    .tcard-stars { color: var(--rust); font-size: 16px; letter-spacing: 2px; margin-bottom: 14px; }
+
+    .tcard-quote {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: var(--brown);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .tcard-author { font-size: 14px; font-weight: 600; color: var(--text); }
+    .tcard-info { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    /* LOCATION */
+    .location-section {
+      background: var(--brown);
+      color: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 0;
+      min-height: 500px;
+    }
+
+    .location-info {
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .location-info .section-tag { color: var(--tan); }
+    .location-info .section-title { color: var(--cream); }
+    .location-info .section-title em { color: var(--light-brown); }
+
+    .location-details {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .location-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .location-detail-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .location-detail-text { font-size: 14px; line-height: 1.6; color: rgba(253,248,240,0.75); }
+    .location-detail-text strong { display: block; color: var(--cream); font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+
+    .location-map {
+      background: linear-gradient(160deg, #5a3520 0%, #2e1b0e 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .map-placeholder {
+      text-align: center;
+      color: rgba(253,248,240,0.3);
+    }
+
+    .map-placeholder-icon { font-size: 64px; margin-bottom: 16px; opacity: 0.5; }
+
+    .map-placeholder-text { font-family: 'Lora', serif; font-size: 18px; font-style: italic; }
+
+    .map-grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(253,248,240,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(253,248,240,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* NEWSLETTER */
+    .newsletter {
+      background: var(--rust);
+      padding: 80px 60px;
+      text-align: center;
+    }
+
+    .newsletter h2 {
+      font-family: 'Lora', serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .newsletter p { color: rgba(253,248,240,0.8); font-size: 16px; margin-bottom: 36px; }
+
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      padding: 14px 20px;
+      border-radius: 100px;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .newsletter-form input::placeholder { color: rgba(255,255,255,0.5); }
+    .newsletter-form input:focus { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.2); }
+
+    .btn-cream {
+      display: inline-block;
+      text-decoration: none;
+      background: var(--cream);
+      color: var(--rust);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 100px;
+      white-space: nowrap;
+      transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-cream:hover { background: #fff; }
+
+    /* FOOTER */
+    footer {
+      background: var(--brown);
+      padding: 48px 60px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-brand .logo { color: var(--cream); font-size: 20px; }
+    .footer-brand p { font-size: 13px; color: rgba(253,248,240,0.5); margin-top: 12px; line-height: 1.7; }
+
+    .footer-col-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--tan);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      text-decoration: none;
+      color: rgba(253,248,240,0.5);
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--cream); }
+
+    .footer-bottom {
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-copy { font-size: 13px; color: rgba(253,248,240,0.35); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">The Golden <span>Loaf</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">Our Story</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#location">Find Us</a></li>
+      <li><a href="#newsletter">Newsletter</a></li>
+    </ul>
+    <a href="#location" class="nav-cta">Visit Us</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">Baked fresh every morning</div>
+      <h1>
+        Baked with love,<br>
+        served with <em>warmth.</em>
+      </h1>
+      <p class="hero-sub">
+        We've been crafting sourdough, pastries, and perfectly brewed coffee in the heart of Bristol since 2009. Every loaf, every crumb — made from scratch.
+      </p>
+      <div class="hero-cta-row">
+        <a href="#menu" class="btn-rust">See Our Menu</a>
+        <a href="#about" class="btn-outline-brown">Our Story</a>
+      </div>
+      <div class="hero-perks">
+        <div class="hero-perk">
+          <span class="hero-perk-icon">🌾</span>
+          <span>Locally sourced flour</span>
+        </div>
+        <div class="hero-perk">
+          <span class="hero-perk-icon">🍃</span>
+          <span>No additives</span>
+        </div>
+        <div class="hero-perk">
+          <span class="hero-perk-icon">☕</span>
+          <span>Specialty coffee</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-cell"><div class="fill fill-1"><div class="fill-emoji">🍞</div></div></div>
+      <div class="hero-img-cell"><div class="fill fill-2"><div class="fill-emoji">🥐</div></div></div>
+      <div class="hero-img-cell"><div class="fill fill-3"><div class="fill-emoji">☕</div></div></div>
+      <div class="hero-img-cell"><div class="fill fill-4"><div class="fill-emoji">🧁</div></div></div>
+    </div>
+  </section>
+
+  <!-- OPENING BAND -->
+  <div class="opening-band">
+    <div class="opening-item">
+      <span class="opening-item-icon">🕐</span>
+      <span>Mon–Fri: <strong>7am – 5pm</strong></span>
+    </div>
+    <div class="opening-item">
+      <span class="opening-item-icon">🕐</span>
+      <span>Saturday: <strong>8am – 4pm</strong></span>
+    </div>
+    <div class="opening-item">
+      <span class="opening-item-icon">🕐</span>
+      <span>Sunday: <strong>9am – 2pm</strong></span>
+    </div>
+    <div class="opening-item">
+      <span class="opening-item-icon">📍</span>
+      <span>14 Corn Street, <strong>Bristol BS1 1HT</strong></span>
+    </div>
+    <div class="opening-item">
+      <span class="opening-item-icon">📞</span>
+      <span><strong>0117 456 7890</strong></span>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrapper">
+    <div class="marquee-track">
+      <span class="marquee-item">Sourdough Loaves</span>
+      <span class="marquee-item">Croissants</span>
+      <span class="marquee-item">Cinnamon Rolls</span>
+      <span class="marquee-item">Focaccia</span>
+      <span class="marquee-item">Specialty Coffee</span>
+      <span class="marquee-item">Seasonal Pastries</span>
+      <span class="marquee-item">Gluten-Free Options</span>
+      <span class="marquee-item">Vegan Bakes</span>
+      <span class="marquee-item">Sourdough Loaves</span>
+      <span class="marquee-item">Croissants</span>
+      <span class="marquee-item">Cinnamon Rolls</span>
+      <span class="marquee-item">Focaccia</span>
+      <span class="marquee-item">Specialty Coffee</span>
+      <span class="marquee-item">Seasonal Pastries</span>
+      <span class="marquee-item">Gluten-Free Options</span>
+      <span class="marquee-item">Vegan Bakes</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <div class="about-image" style="position:relative">
+      <div class="fill fill-main" style="width:100%;height:100%;border-radius:24px"></div>
+      <div class="fill-emoji" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:100px;opacity:0.25">🍞</div>
+      <div class="about-floating-card">
+        <div class="num">15+</div>
+        <div class="label">Years baking in Bristol</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="section-tag">🌾 Our Story</p>
+      <h2 class="section-title">A family tradition,<br><em>one loaf at a time.</em></h2>
+      <div class="divider"></div>
+      <p>The Golden Loaf was born from a simple idea: that bread should taste like bread. Not the packaged, shelf-stable kind — but the kind that fills a kitchen with warmth and comes out of the oven with a perfect crackling crust.</p>
+      <p>Founded by the Hargrove family in 2009, we've grown from a single market stall to a beloved Bristol institution — but our values have never changed. Local. Honest. Made with love.</p>
+      <ul class="values-list">
+        <li>Only locally-sourced, stoneground flour from Wessex Mills</li>
+        <li>No preservatives, additives, or shortcuts — ever</li>
+        <li>Slow-fermented sourdough for real flavour and gut health</li>
+        <li>Seasonal specials that celebrate what's fresh right now</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu" class="menu-section">
+    <div class="menu-header">
+      <div>
+        <p class="section-tag">🥐 What's on offer</p>
+        <h2 class="section-title">Fresh from the<br><em>oven today.</em></h2>
+      </div>
+      <a href="#location" class="btn-outline-brown">Visit to see full menu</a>
+    </div>
+    <div class="menu-tabs">
+      <div class="menu-tab active">Breads</div>
+      <div class="menu-tab">Pastries</div>
+      <div class="menu-tab">Cakes</div>
+      <div class="menu-tab">Drinks</div>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="menu-img">
+          <div class="menu-img-emoji">🍞</div>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name">Country Sourdough</div>
+          <p class="menu-desc">72-hour cold-fermented, stoneground flour, crispy crust. Our signature loaf — baked daily from 7am.</p>
+          <div class="menu-footer">
+            <span class="menu-price">£4.80</span>
+            <span class="menu-allergens">Gluten · Vegan</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-img">
+          <div class="menu-img-emoji">🫓</div>
+          <span class="menu-badge">Fan Fave</span>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name">Rosemary Focaccia</div>
+          <p class="menu-desc">Olive oil-soaked, sea salt and fresh rosemary. Best enjoyed warm with a drizzle of our house butter.</p>
+          <div class="menu-footer">
+            <span class="menu-price">£3.20</span>
+            <span class="menu-allergens">Gluten · Vegan</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-img">
+          <div class="menu-img-emoji">🥐</div>
+          <span class="menu-badge">New</span>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name">Butter Croissant</div>
+          <p class="menu-desc">Laminated with Normandy butter, 27 layers of flaky, golden perfection. Made fresh each morning.</p>
+          <div class="menu-footer">
+            <span class="menu-price">£2.50</span>
+            <span class="menu-allergens">Gluten · Dairy · Eggs</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-img">
+          <div class="menu-img-emoji">🌿</div>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name">Seeded Spelt Loaf</div>
+          <p class="menu-desc">Ancient grain spelt, mixed seeds, and a hint of honey. Nutty, wholesome, and wonderfully hearty.</p>
+          <div class="menu-footer">
+            <span class="menu-price">£5.20</span>
+            <span class="menu-allergens">Gluten · May contain nuts</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-img">
+          <div class="menu-img-emoji">🧁</div>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name">Cinnamon Roll</div>
+          <p class="menu-desc">Soft, pillowy dough, brown sugar and cinnamon swirl, cream cheese glaze. A weekend ritual for many of our regulars.</p>
+          <div class="menu-footer">
+            <span class="menu-price">£3.80</span>
+            <span class="menu-allergens">Gluten · Dairy · Eggs</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-img">
+          <div class="menu-img-emoji">☕</div>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name">Flat White</div>
+          <p class="menu-desc">Single-origin Ethiopian beans, velvety steamed oat milk (or dairy), pulled to a perfect 30-second shot.</p>
+          <div class="menu-footer">
+            <span class="menu-price">£3.00</span>
+            <span class="menu-allergens">Dairy (or Oat)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="testimonials-header">
+      <p class="section-tag">💬 What people say</p>
+      <h2 class="section-title">Our customers say it<br><em>best.</em></h2>
+      <p class="section-sub">We're rated 4.9 stars on Google with over 600 reviews.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"The sourdough here is the best I've ever tasted outside of San Francisco. I come in every Saturday without fail."</p>
+        <div class="tcard-author">Emma Bradshaw</div>
+        <div class="tcard-info">Google Review · Clifton, Bristol</div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"It smells incredible the moment you walk in. Friendly staff, great coffee, and the cinnamon rolls are dangerous."</p>
+        <div class="tcard-author">David Owens</div>
+        <div class="tcard-info">TripAdvisor Review</div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"As a coeliac I'm always anxious eating out — the GF options here are genuinely delicious and the team are so careful."</p>
+        <div class="tcard-author">Sophie Marchetti</div>
+        <div class="tcard-info">Google Review · Regular customer</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <div id="location" class="location-section">
+    <div class="location-info">
+      <p class="section-tag">📍 Find us</p>
+      <h2 class="section-title">Come say <em>hello.</em></h2>
+      <div class="location-details">
+        <div class="location-detail">
+          <div class="location-detail-icon">📍</div>
+          <div class="location-detail-text">
+            <strong>Address</strong>
+            14 Corn Street, Bristol BS1 1HT<br>Near the Corn Exchange, city centre
+          </div>
+        </div>
+        <div class="location-detail">
+          <div class="location-detail-icon">🕐</div>
+          <div class="location-detail-text">
+            <strong>Opening Hours</strong>
+            Mon–Fri: 7am – 5pm · Sat: 8am – 4pm · Sun: 9am – 2pm
+          </div>
+        </div>
+        <div class="location-detail">
+          <div class="location-detail-icon">📞</div>
+          <div class="location-detail-text">
+            <strong>Phone</strong>
+            0117 456 7890
+          </div>
+        </div>
+        <div class="location-detail">
+          <div class="location-detail-icon">✉️</div>
+          <div class="location-detail-text">
+            <strong>Email</strong>
+            hello@thegoldenloaf.co.uk
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="location-map">
+      <div class="map-grid-lines"></div>
+      <div class="map-placeholder">
+        <div class="map-placeholder-icon">📍</div>
+        <p class="map-placeholder-text">14 Corn Street, Bristol</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <section id="newsletter" class="newsletter">
+    <h2>Never miss our fresh<br>weekly specials.</h2>
+    <p>Join 3,000+ locals who get our seasonal menu and special offers every week.</p>
+    <div class="newsletter-form">
+      <input type="email" placeholder="Your email address" />
+      <button class="btn-cream">Subscribe</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo">The Golden <span style="color:var(--rust)">Loaf</span></a>
+        <p>Artisan bakery & café in the heart of Bristol. Baked fresh every morning since 2009.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Visit</div>
+        <ul>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#location">Find Us</a></li>
+          <li><a href="#">Wholesale</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Order</div>
+        <ul>
+          <li><a href="#">Click & Collect</a></li>
+          <li><a href="#">Local Delivery</a></li>
+          <li><a href="#">Bread Subscriptions</a></li>
+          <li><a href="#">Corporate Orders</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Connect</div>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 The Golden Loaf. All rights reserved.</p>
+      <p class="footer-copy">Proudly independent · Made in Bristol</p>
+    </div>
+  </footer>
+
+</body>
+</html>

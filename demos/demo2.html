@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PeakFit — Gym & Performance Centre</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #ff5c1a;
+      --yellow: #ffd200;
+      --purple: #4b1fd4;
+      --dark: #0e0e12;
+      --white: #ffffff;
+      --light-grey: #f4f4f4;
+      --mid-grey: #999;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 60px;
+      height: 72px;
+      background: var(--dark);
+    }
+
+    .logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--orange); }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #aaa;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--orange);
+      color: var(--white);
+      text-decoration: none;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .nav-cta:hover { background: #e04500; transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background: var(--dark);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 60px 80px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 80% 50%, rgba(255,92,26,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 20% 30%, rgba(75,31,212,0.2) 0%, transparent 55%);
+    }
+
+    .hero-grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 680px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,92,26,0.15);
+      border: 1px solid rgba(255,92,26,0.4);
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(64px, 9vw, 130px);
+      font-weight: 900;
+      line-height: 0.9;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    h1 .highlight {
+      -webkit-text-stroke: 2px var(--orange);
+      color: transparent;
+    }
+
+    .hero-sub {
+      color: #888;
+      font-size: 17px;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 28px 0 48px;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-orange {
+      display: inline-block;
+      text-decoration: none;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 16px 40px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-orange:hover { background: #e04500; transform: translateY(-2px); }
+
+    .btn-outline-white {
+      display: inline-block;
+      text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.3);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 36px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-outline-white:hover { border-color: var(--white); color: var(--white); }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 64px;
+      padding-top: 48px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .hero-stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 44px;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .hero-stat-num span { color: var(--orange); }
+
+    .hero-stat-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #666;
+      margin-top: 6px;
+    }
+
+    .hero-image-col {
+      position: absolute;
+      right: 0;
+      top: 72px;
+      bottom: 0;
+      width: 45%;
+      overflow: hidden;
+    }
+
+    .hero-image-col .img-fill {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(160deg, #ff5c1a22 0%, #4b1fd422 40%, #0e0e12 100%);
+      position: relative;
+    }
+
+    .hero-image-col .img-fill::after {
+      content: '💪';
+      font-size: 180px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.06;
+    }
+
+    /* MARQUEE */
+    .marquee-wrapper {
+      overflow: hidden;
+      background: var(--orange);
+      padding: 14px 0;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee 18s linear infinite;
+    }
+
+    .marquee-item {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      padding: 0 28px;
+    }
+
+    .marquee-item::after {
+      content: '★';
+      margin-left: 28px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* SECTION BASE */
+    section { padding: 100px 60px; }
+
+    .section-tag {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      margin-bottom: 20px;
+    }
+
+    .section-heading {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+    }
+
+    /* CLASSES */
+    .classes-section { background: var(--light-grey); }
+
+    .classes-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 52px;
+    }
+
+    .classes-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .class-card {
+      background: var(--white);
+      overflow: hidden;
+      border-bottom: 4px solid transparent;
+      transition: border-color 0.25s, transform 0.25s;
+      cursor: pointer;
+    }
+
+    .class-card:hover { border-color: var(--orange); transform: translateY(-4px); }
+
+    .class-color-bar {
+      height: 6px;
+    }
+
+    .class-card:nth-child(1) .class-color-bar { background: var(--orange); }
+    .class-card:nth-child(2) .class-color-bar { background: var(--yellow); }
+    .class-card:nth-child(3) .class-color-bar { background: var(--purple); }
+    .class-card:nth-child(4) .class-color-bar { background: #00c4a3; }
+
+    .class-body { padding: 28px; }
+
+    .class-icon { font-size: 36px; margin-bottom: 16px; }
+
+    .class-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+
+    .class-desc { font-size: 13px; color: #666; line-height: 1.7; margin-bottom: 20px; }
+
+    .class-meta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .class-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      background: var(--light-grey);
+      color: #444;
+    }
+
+    /* TRAINERS */
+    .trainers { background: var(--dark); }
+
+    .trainers .section-heading { color: var(--white); }
+
+    .trainers-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 52px;
+    }
+
+    .trainers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .trainer-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .trainer-img {
+      aspect-ratio: 3/4;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .trainer-card:nth-child(1) .trainer-img { background: linear-gradient(160deg, #ff5c1a66, #0e0e12); }
+    .trainer-card:nth-child(2) .trainer-img { background: linear-gradient(160deg, #ffd20066, #0e0e12); }
+    .trainer-card:nth-child(3) .trainer-img { background: linear-gradient(160deg, #4b1fd466, #0e0e12); }
+
+    .trainer-avatar {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .trainer-info { padding: 20px 0; }
+
+    .trainer-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .trainer-spec {
+      font-size: 13px;
+      color: var(--orange);
+      margin-top: 4px;
+    }
+
+    /* PRICING */
+    .pricing { background: var(--white); }
+
+    .pricing-header { text-align: center; margin-bottom: 52px; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      border: 2px solid #eee;
+      padding: 44px 36px;
+      text-align: center;
+      position: relative;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .pricing-card:hover { border-color: var(--orange); transform: translateY(-4px); }
+
+    .pricing-card.popular {
+      border-color: var(--orange);
+      background: var(--dark);
+      color: var(--white);
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 18px;
+    }
+
+    .pricing-plan {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+
+    .pricing-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 56px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .pricing-card.popular .pricing-price { color: var(--white); }
+
+    .pricing-period { font-size: 13px; color: #888; margin-bottom: 28px; }
+    .pricing-card.popular .pricing-period { color: #999; }
+
+    .pricing-features { list-style: none; text-align: left; margin-bottom: 36px; }
+
+    .pricing-features li {
+      font-size: 14px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pricing-card.popular .pricing-features li { border-color: rgba(255,255,255,0.08); color: #ccc; }
+
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--orange);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .btn-pricing-primary {
+      display: block;
+      text-decoration: none;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 14px;
+      text-align: center;
+      transition: background 0.2s;
+    }
+
+    .btn-pricing-primary:hover { background: #e04500; }
+
+    .btn-pricing-ghost {
+      display: block;
+      text-decoration: none;
+      border: 2px solid #ddd;
+      color: var(--dark);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 12px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+
+    .btn-pricing-ghost:hover { border-color: var(--orange); }
+
+    /* TESTIMONIAL STRIP */
+    .testimonial-strip {
+      background: var(--orange);
+      padding: 80px 60px;
+    }
+
+    .testimonial-strip-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .testimonial-strip blockquote {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 28px;
+    }
+
+    .testimonial-strip cite {
+      font-style: normal;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+    }
+
+    /* CONTACT */
+    .contact-section {
+      background: var(--dark);
+      color: var(--white);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-grid .section-heading { color: var(--white); }
+
+    .contact-perks {
+      list-style: none;
+      margin: 32px 0;
+    }
+
+    .contact-perks li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    .contact-perks li::before {
+      content: '→';
+      color: var(--orange);
+      font-weight: 700;
+    }
+
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 14px;
+      padding: 14px 18px;
+      outline: none;
+      display: block;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .contact-form input:focus,
+    .contact-form select:focus,
+    .contact-form textarea:focus { border-color: var(--orange); }
+
+    .contact-form select { color: #888; }
+    .contact-form select option { background: #222; color: var(--white); }
+
+    .contact-form textarea { min-height: 100px; resize: vertical; }
+    .contact-form ::placeholder { color: #555; }
+
+    /* FOOTER */
+    footer {
+      background: #070709;
+      padding: 40px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-copy { font-size: 13px; color: #555; }
+
+    .footer-nav {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-nav a {
+      text-decoration: none;
+      color: #555;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover { color: var(--orange); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">Peak<span>Fit</span></a>
+    <ul class="nav-links">
+      <li><a href="#classes">Classes</a></li>
+      <li><a href="#trainers">Trainers</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Join Now</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-lines"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Manchester's #1 Performance Gym</div>
+      <h1>
+        Train<br>
+        <span class="highlight">Harder.</span><br>
+        Get Results.
+      </h1>
+      <p class="hero-sub">
+        PeakFit is where ordinary people become extraordinary. World-class coaches, elite equipment, and a community that pushes you to your absolute limit.
+      </p>
+      <div class="hero-cta-row">
+        <a href="#contact" class="btn-orange">Start Free Trial</a>
+        <a href="#classes" class="btn-outline-white">View Classes</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">2<span>k+</span></div>
+          <div class="hero-stat-label">Active members</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">45<span>+</span></div>
+          <div class="hero-stat-label">Weekly classes</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">18<span></span></div>
+          <div class="hero-stat-label">Expert coaches</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-image-col">
+      <div class="img-fill"></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrapper">
+    <div class="marquee-track">
+      <span class="marquee-item">HIIT</span>
+      <span class="marquee-item">Strength Training</span>
+      <span class="marquee-item">Spin Classes</span>
+      <span class="marquee-item">Yoga & Recovery</span>
+      <span class="marquee-item">Boxing</span>
+      <span class="marquee-item">Personal Training</span>
+      <span class="marquee-item">Nutrition Plans</span>
+      <span class="marquee-item">HIIT</span>
+      <span class="marquee-item">Strength Training</span>
+      <span class="marquee-item">Spin Classes</span>
+      <span class="marquee-item">Yoga & Recovery</span>
+      <span class="marquee-item">Boxing</span>
+      <span class="marquee-item">Personal Training</span>
+      <span class="marquee-item">Nutrition Plans</span>
+    </div>
+  </div>
+
+  <!-- CLASSES -->
+  <section id="classes" class="classes-section">
+    <div class="classes-header">
+      <div>
+        <div class="section-tag">Classes</div>
+        <h2 class="section-heading">Train your<br>way.</h2>
+      </div>
+      <a href="#contact" class="btn-orange" style="text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:14px 28px;display:inline-block">
+        View Full Timetable
+      </a>
+    </div>
+    <div class="classes-grid">
+      <div class="class-card">
+        <div class="class-color-bar"></div>
+        <div class="class-body">
+          <div class="class-icon">🔥</div>
+          <div class="class-name">HIIT Blast</div>
+          <p class="class-desc">High-intensity interval training designed to torch calories and build cardiovascular power in 45 explosive minutes.</p>
+          <div class="class-meta">
+            <span class="class-tag">45 min</span>
+            <span class="class-tag">All levels</span>
+            <span class="class-tag">Daily</span>
+          </div>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-color-bar"></div>
+        <div class="class-body">
+          <div class="class-icon">🏋️</div>
+          <div class="class-name">Strength Lab</div>
+          <p class="class-desc">Structured barbell and dumbbell programming to build real, functional strength. Coached lifts and progressive overload.</p>
+          <div class="class-meta">
+            <span class="class-tag">60 min</span>
+            <span class="class-tag">Intermediate</span>
+            <span class="class-tag">3x week</span>
+          </div>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-color-bar"></div>
+        <div class="class-body">
+          <div class="class-icon">🥊</div>
+          <div class="class-name">Box Fit</div>
+          <p class="class-desc">Punch, move, and sweat through a boxing-inspired circuit that builds speed, agility, and serious conditioning.</p>
+          <div class="class-meta">
+            <span class="class-tag">50 min</span>
+            <span class="class-tag">All levels</span>
+            <span class="class-tag">4x week</span>
+          </div>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-color-bar"></div>
+        <div class="class-body">
+          <div class="class-icon">🧘</div>
+          <div class="class-name">Recovery Flow</div>
+          <p class="class-desc">Mobility, stretching, and breathwork to keep you training hard day after day without burning out.</p>
+          <div class="class-meta">
+            <span class="class-tag">40 min</span>
+            <span class="class-tag">All levels</span>
+            <span class="class-tag">5x week</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAINERS -->
+  <section id="trainers" class="trainers">
+    <div class="trainers-header">
+      <div>
+        <div class="section-tag">The Team</div>
+        <h2 class="section-heading" style="color:var(--white)">Meet your<br>coaches.</h2>
+      </div>
+    </div>
+    <div class="trainers-grid">
+      <div class="trainer-card">
+        <div class="trainer-img">
+          <div class="trainer-avatar">💪</div>
+        </div>
+        <div class="trainer-info">
+          <div class="trainer-name">Jake Morrison</div>
+          <div class="trainer-spec">Head Coach — Strength & Conditioning</div>
+        </div>
+      </div>
+      <div class="trainer-card">
+        <div class="trainer-img">
+          <div class="trainer-avatar">🏃</div>
+        </div>
+        <div class="trainer-info">
+          <div class="trainer-name">Priya Nair</div>
+          <div class="trainer-spec">HIIT & Cardio Specialist</div>
+        </div>
+      </div>
+      <div class="trainer-card">
+        <div class="trainer-img">
+          <div class="trainer-avatar">🥊</div>
+        </div>
+        <div class="trainer-info">
+          <div class="trainer-name">Carlos Reyes</div>
+          <div class="trainer-spec">Boxing & Combat Fitness Coach</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="pricing">
+    <div class="pricing-header">
+      <div class="section-tag">Membership</div>
+      <h2 class="section-heading">Simple pricing.<br>Serious gains.</h2>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-plan">Starter</div>
+        <div class="pricing-price">£29</div>
+        <div class="pricing-period">per month</div>
+        <ul class="pricing-features">
+          <li>Gym floor access</li>
+          <li>5 classes per month</li>
+          <li>Locker facilities</li>
+          <li>App & workout tracker</li>
+        </ul>
+        <a href="#contact" class="btn-pricing-ghost">Get Started</a>
+      </div>
+      <div class="pricing-card popular">
+        <div class="popular-badge">Most Popular</div>
+        <div class="pricing-plan">Pro</div>
+        <div class="pricing-price" style="color:var(--orange)">£49</div>
+        <div class="pricing-period">per month</div>
+        <ul class="pricing-features">
+          <li>Unlimited gym access</li>
+          <li>Unlimited classes</li>
+          <li>1 PT session/month</li>
+          <li>Nutrition guidance</li>
+          <li>Priority booking</li>
+        </ul>
+        <a href="#contact" class="btn-pricing-primary">Get Started</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-plan">Elite</div>
+        <div class="pricing-price">£89</div>
+        <div class="pricing-period">per month</div>
+        <ul class="pricing-features">
+          <li>Everything in Pro</li>
+          <li>4 PT sessions/month</li>
+          <li>Custom meal plan</li>
+          <li>Body composition scans</li>
+        </ul>
+        <a href="#contact" class="btn-pricing-ghost">Get Started</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL STRIP -->
+  <div class="testimonial-strip">
+    <div class="testimonial-strip-inner">
+      <blockquote>"I lost 18kg in 5 months. PeakFit changed my life — the coaches actually care about your results."</blockquote>
+      <cite>— Marcus T., Pro Member since 2023</cite>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="contact-grid">
+      <div>
+        <div class="section-tag">Join PeakFit</div>
+        <h2 class="section-heading" style="color:var(--white)">Ready to<br>level up?</h2>
+        <ul class="contact-perks">
+          <li>No joining fee this month</li>
+          <li>7-day free trial — no commitment</li>
+          <li>Cancel anytime, no hassle</li>
+          <li>Free induction session included</li>
+        </ul>
+        <p style="color:#666;font-size:13px">📍 12 Athletic Way, Manchester M4 1AB &nbsp;·&nbsp; 📞 0161 234 5678</p>
+      </div>
+      <div class="contact-form">
+        <input type="text" placeholder="Full name" />
+        <input type="email" placeholder="Email address" />
+        <input type="tel" placeholder="Phone number" />
+        <select>
+          <option value="" disabled selected>I'm interested in...</option>
+          <option>Starter Membership</option>
+          <option>Pro Membership</option>
+          <option>Elite Membership</option>
+          <option>Personal Training</option>
+        </select>
+        <textarea placeholder="Any questions or goals you'd like to share?"></textarea>
+        <a href="#" class="btn-orange" style="display:block;text-align:center;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:16px">
+          Claim My Free Trial
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="logo" style="color:var(--white)">Peak<span style="color:var(--orange)">Fit</span></a>
+    <ul class="footer-nav">
+      <li><a href="#classes">Classes</a></li>
+      <li><a href="#trainers">Trainers</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 PeakFit Performance Centre. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

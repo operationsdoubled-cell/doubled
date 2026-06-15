@@ -290,6 +290,29 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xlgkazgq';
 })();
 
 /* ─────────────────────────────────────────────
+   DEMO IFRAME SCALER
+   Scales each iframe to fill its wrapper at the
+   correct ratio, as if viewing at 1440px desktop.
+   ───────────────────────────────────────────── */
+(function initDemoFrames() {
+  const wraps = document.querySelectorAll('.demo-frame-wrap');
+  if (!wraps.length) return;
+
+  function scale() {
+    wraps.forEach(wrap => {
+      const frame = wrap.querySelector('.demo-frame');
+      if (!frame) return;
+      const s = wrap.offsetWidth / 1440;
+      frame.style.transform = `scale(${s})`;
+      wrap.style.height     = Math.round(900 * s) + 'px';
+    });
+  }
+
+  scale();
+  window.addEventListener('resize', scale, { passive: true });
+})();
+
+/* ─────────────────────────────────────────────
    PARALLAX — subtle hero orb drift on mousemove
    ───────────────────────────────────────────── */
 (function initParallax() {
@@ -308,6 +331,53 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xlgkazgq';
       const s = strengths[i] || 0.01;
       orb.style.transform = `translate(${dx * s}px, ${dy * s}px)`;
     });
+  });
+})();
+
+/* ─────────────────────────────────────────────
+   DEMO MODAL — open/close live demo previews
+   ───────────────────────────────────────────── */
+(function initDemoModal() {
+  const modal    = document.getElementById('demo-modal');
+  const backdrop = document.getElementById('demo-modal-backdrop');
+  const frame    = document.getElementById('demo-modal-frame');
+  const urlBar   = document.getElementById('demo-modal-url');
+  const newTab   = document.getElementById('demo-modal-new');
+  const closeBtn = document.getElementById('demo-modal-close');
+  if (!modal || !backdrop) return;
+
+  function openModal(src, label) {
+    frame.src   = src;
+    urlBar.textContent = label || src;
+    newTab.href = src;
+    modal.classList.add('open');
+    backdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+    // Delay clearing src so closing animation isn't janky
+    setTimeout(() => { frame.src = ''; }, 300);
+  }
+
+  // Open on card or button click
+  document.querySelectorAll('.demo-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const src   = card.dataset.demo;
+      const label = card.dataset.label;
+      if (src) openModal(src, label);
+    });
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+
+  // Escape key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
   });
 })();
 

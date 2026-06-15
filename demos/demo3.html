@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NovaTech — AI-Powered Business Intelligence</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060810;
+      --bg2: #0c0f1a;
+      --bg3: #111526;
+      --cyan: #00e5ff;
+      --purple: #7c3aed;
+      --pink: #f43f8e;
+      --white: #f0f4ff;
+      --muted: #6b7280;
+      --border: rgba(255,255,255,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 64px;
+      height: 68px;
+      background: rgba(6,8,16,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.03em;
+    }
+
+    .logo span { color: var(--cyan); }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: var(--bg);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 10px 24px;
+      border-radius: 6px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 60px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated grid */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(0,229,255,0.07) 0%, rgba(124,58,237,0.07) 40%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; max-width: 860px; }
+
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,229,255,0.08);
+      border: 1px solid rgba(0,229,255,0.2);
+      color: var(--cyan);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      padding: 7px 16px;
+      border-radius: 100px;
+      margin-bottom: 36px;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-chip::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--cyan); }
+      50% { opacity: 0.5; box-shadow: 0 0 2px var(--cyan); }
+    }
+
+    h1 {
+      font-size: clamp(48px, 7vw, 96px);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 50%, var(--pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 580px;
+      margin: 0 auto 48px;
+      line-height: 1.75;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: var(--bg);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 15px 36px;
+      border-radius: 8px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 15px 36px;
+      border-radius: 8px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--cyan); background: rgba(0,229,255,0.04); }
+
+    /* LOGOS */
+    .logos {
+      padding: 48px 60px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg2);
+    }
+
+    .logos-label {
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .logos-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    .logo-pill {
+      font-family: 'Space Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: -0.02em;
+      transition: color 0.2s;
+    }
+
+    .logo-pill:hover { color: rgba(255,255,255,0.5); }
+
+    /* FEATURES */
+    .features {
+      padding: 100px 60px;
+      background: var(--bg);
+    }
+
+    .features-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 72px;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: var(--muted);
+      margin-top: 16px;
+      line-height: 1.75;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--bg2);
+      padding: 40px 36px;
+      border: 1px solid var(--border);
+      transition: background 0.3s, border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .feature-card:hover { background: var(--bg3); border-color: rgba(0,229,255,0.15); }
+    .feature-card:hover::before { opacity: 1; }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: rgba(0,229,255,0.08);
+      border: 1px solid rgba(0,229,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 24px;
+    }
+
+    .feature-name {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* DASHBOARD PREVIEW */
+    .preview-section {
+      padding: 100px 60px;
+      background: var(--bg2);
+    }
+
+    .preview-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+
+    .dashboard-mockup {
+      max-width: 960px;
+      margin: 0 auto;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    .mockup-bar {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mockup-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+    }
+
+    .mockup-dot:nth-child(1) { background: #ff5f57; }
+    .mockup-dot:nth-child(2) { background: #febc2e; }
+    .mockup-dot:nth-child(3) { background: #28c840; }
+
+    .mockup-url {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 16px;
+      margin: 0 auto;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      width: 300px;
+      text-align: center;
+    }
+
+    .mockup-body {
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 24px;
+      min-height: 420px;
+    }
+
+    .mockup-sidebar {
+      background: var(--bg2);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 20px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+    }
+
+    .sidebar-item.active { background: rgba(0,229,255,0.08); color: var(--cyan); }
+    .sidebar-item:hover:not(.active) { background: rgba(255,255,255,0.04); color: var(--white); }
+
+    .mockup-main { display: flex; flex-direction: column; gap: 20px; }
+
+    .metric-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+    .metric-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .metric-label { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+
+    .metric-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .metric-value.cyan { color: var(--cyan); }
+    .metric-value.purple { color: #a78bfa; }
+    .metric-value.pink { color: var(--pink); }
+
+    .metric-change { font-size: 12px; color: #22c55e; margin-top: 4px; }
+
+    .chart-area {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      flex: 1;
+    }
+
+    .chart-label { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+
+    .chart-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      height: 120px;
+    }
+
+    .chart-bar {
+      flex: 1;
+      border-radius: 3px 3px 0 0;
+      background: linear-gradient(to top, var(--purple), var(--cyan));
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .chart-bar:hover { opacity: 1; }
+
+    /* PRICING */
+    .pricing {
+      padding: 100px 60px;
+      background: var(--bg);
+    }
+
+    .pricing-header {
+      text-align: center;
+      max-width: 580px;
+      margin: 0 auto 60px;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      max-width: 960px;
+      margin: 0 auto;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .pricing-card {
+      background: var(--bg2);
+      padding: 44px 36px;
+      position: relative;
+    }
+
+    .pricing-card.featured { background: var(--bg3); }
+
+    .pricing-card.featured::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+    }
+
+    .featured-label {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: rgba(0,229,255,0.1);
+      border: 1px solid rgba(0,229,255,0.3);
+      color: var(--cyan);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.08em;
+    }
+
+    .plan-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .plan-price {
+      font-size: 52px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .plan-price sup { font-size: 22px; vertical-align: top; margin-top: 10px; display: inline-block; }
+
+    .plan-period { font-size: 13px; color: var(--muted); margin-bottom: 32px; }
+
+    .plan-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 28px;
+    }
+
+    .plan-features { list-style: none; margin-bottom: 36px; }
+
+    .plan-features li {
+      font-size: 14px;
+      color: rgba(240,244,255,0.7);
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .plan-features li::before {
+      content: '✓';
+      color: var(--cyan);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .btn-plan-primary {
+      display: block;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: var(--bg);
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+      padding: 13px;
+      border-radius: 7px;
+      transition: opacity 0.2s;
+    }
+
+    .btn-plan-primary:hover { opacity: 0.88; }
+
+    .btn-plan-ghost {
+      display: block;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+      padding: 13px;
+      border-radius: 7px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-plan-ghost:hover { border-color: var(--cyan); background: rgba(0,229,255,0.04); }
+
+    /* TESTIMONIALS */
+    .testimonials {
+      padding: 100px 60px;
+      background: var(--bg2);
+    }
+
+    .testimonials-header { text-align: center; margin-bottom: 60px; }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .tcard {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 36px;
+      transition: border-color 0.3s;
+    }
+
+    .tcard:hover { border-color: rgba(0,229,255,0.2); }
+
+    .tcard-stars { color: var(--cyan); font-size: 14px; margin-bottom: 16px; letter-spacing: 2px; }
+
+    .tcard-quote {
+      font-size: 15px;
+      color: rgba(240,244,255,0.75);
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+
+    .tcard-author-name { font-size: 14px; font-weight: 600; }
+    .tcard-author-role { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    /* CTA */
+    .cta-section {
+      padding: 120px 60px;
+      background: var(--bg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-content { position: relative; max-width: 680px; margin: 0 auto; }
+
+    .cta-title {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .cta-sub { font-size: 16px; color: var(--muted); margin-bottom: 44px; line-height: 1.75; }
+
+    .cta-form {
+      display: flex;
+      gap: 12px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .cta-form input {
+      flex: 1;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      padding: 14px 20px;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .cta-form input:focus { border-color: var(--cyan); }
+    .cta-form input::placeholder { color: var(--muted); }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 48px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover { color: var(--cyan); }
+
+    .footer-copy { font-size: 13px; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">Nova<span>Tech</span></a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#preview">Product</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#cta">Get Started</a></li>
+    </ul>
+    <a href="#cta" class="nav-cta">Start Free Trial →</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-chip">v2.4 — Now with GPT-4o Integration</div>
+      <h1>
+        Business intelligence,<br>
+        <span class="gradient-text">supercharged by AI.</span>
+      </h1>
+      <p class="hero-sub">
+        NovaTech turns your raw data into real decisions. Live dashboards, predictive analytics, and AI-powered insights — all in one platform built for modern teams.
+      </p>
+      <div class="hero-cta-row">
+        <a href="#cta" class="btn-primary">Start Free — No Card Needed</a>
+        <a href="#preview" class="btn-secondary">▶ Watch Demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGOS -->
+  <div class="logos">
+    <p class="logos-label">Trusted by teams at</p>
+    <div class="logos-grid">
+      <span class="logo-pill">NEXUS CO.</span>
+      <span class="logo-pill">VERTEX AI</span>
+      <span class="logo-pill">SKYBRIDGE</span>
+      <span class="logo-pill">ORBITAL</span>
+      <span class="logo-pill">MERIDIAN</span>
+      <span class="logo-pill">PRISM DATA</span>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section id="features" class="features">
+    <div class="features-header">
+      <p class="section-label">// core features</p>
+      <h2 class="section-title">Everything your data<br>team needs.</h2>
+      <p class="section-sub">From raw ingestion to actionable insight — NovaTech handles the full pipeline so your team can focus on what matters.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-name">Real-Time Pipelines</div>
+        <p class="feature-desc">Connect any data source and stream updates instantly. Sub-second latency, no infrastructure headaches.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-name">AI-Powered Insights</div>
+        <p class="feature-desc">Our LLM engine surfaces anomalies, trends, and recommendations before you think to ask for them.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-name">Live Dashboards</div>
+        <p class="feature-desc">Beautiful, shareable dashboards that update in real time. Built in minutes, not days.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔐</div>
+        <div class="feature-name">Enterprise Security</div>
+        <p class="feature-desc">SOC 2 Type II certified. End-to-end encryption, SSO, and role-based access controls built in.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <div class="feature-name">200+ Integrations</div>
+        <p class="feature-desc">Salesforce, HubSpot, BigQuery, Snowflake, Stripe, and hundreds more — plug in with one click.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <div class="feature-name">Predictive Analytics</div>
+        <p class="feature-desc">Forecast revenue, churn, and growth with ML models trained on your own historical data.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD PREVIEW -->
+  <section id="preview" class="preview-section">
+    <div class="preview-header">
+      <p class="section-label">// product preview</p>
+      <h2 class="section-title">Your data, beautifully<br>organised.</h2>
+    </div>
+    <div class="dashboard-mockup">
+      <div class="mockup-bar">
+        <div class="mockup-dot"></div>
+        <div class="mockup-dot"></div>
+        <div class="mockup-dot"></div>
+        <div class="mockup-url">app.novatech.io/dashboard</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-sidebar">
+          <div class="sidebar-item active">📊 Overview</div>
+          <div class="sidebar-item">📈 Analytics</div>
+          <div class="sidebar-item">🤖 AI Insights</div>
+          <div class="sidebar-item">🔗 Integrations</div>
+          <div class="sidebar-item">👥 Team</div>
+          <div class="sidebar-item">⚙️ Settings</div>
+        </div>
+        <div class="mockup-main">
+          <div class="metric-row">
+            <div class="metric-card">
+              <div class="metric-label">Monthly Revenue</div>
+              <div class="metric-value cyan">£284K</div>
+              <div class="metric-change">↑ 12.4% vs last month</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Active Users</div>
+              <div class="metric-value purple">14,820</div>
+              <div class="metric-change">↑ 8.7% vs last month</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Churn Rate</div>
+              <div class="metric-value pink">2.1%</div>
+              <div class="metric-change" style="color:#f87171">↑ 0.3% — review needed</div>
+            </div>
+          </div>
+          <div class="chart-area">
+            <div class="chart-label">Revenue trend — last 12 months</div>
+            <div class="chart-bars">
+              <div class="chart-bar" style="height:45%"></div>
+              <div class="chart-bar" style="height:55%"></div>
+              <div class="chart-bar" style="height:50%"></div>
+              <div class="chart-bar" style="height:65%"></div>
+              <div class="chart-bar" style="height:58%"></div>
+              <div class="chart-bar" style="height:72%"></div>
+              <div class="chart-bar" style="height:68%"></div>
+              <div class="chart-bar" style="height:80%"></div>
+              <div class="chart-bar" style="height:75%"></div>
+              <div class="chart-bar" style="height:88%"></div>
+              <div class="chart-bar" style="height:92%"></div>
+              <div class="chart-bar" style="height:100%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="pricing">
+    <div class="pricing-header">
+      <p class="section-label">// pricing</p>
+      <h2 class="section-title">Transparent pricing.<br>No surprises.</h2>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price"><sup>£</sup>49</div>
+        <div class="plan-period">per month, billed annually</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>Up to 5 users</li>
+          <li>10 data connectors</li>
+          <li>5 live dashboards</li>
+          <li>30-day data history</li>
+          <li>Email support</li>
+        </ul>
+        <a href="#cta" class="btn-plan-ghost">Get Started</a>
+      </div>
+      <div class="pricing-card featured">
+        <span class="featured-label">Most Popular</span>
+        <div class="plan-name">Growth</div>
+        <div class="plan-price"><sup>£</sup>149</div>
+        <div class="plan-period">per month, billed annually</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>Up to 25 users</li>
+          <li>Unlimited connectors</li>
+          <li>Unlimited dashboards</li>
+          <li>AI Insights engine</li>
+          <li>1-year data history</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#cta" class="btn-plan-primary">Get Started</a>
+      </div>
+      <div class="pricing-card">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">Custom</div>
+        <div class="plan-period">tailored to your team</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>Unlimited users</li>
+          <li>Custom ML models</li>
+          <li>Dedicated infrastructure</li>
+          <li>SSO & advanced security</li>
+          <li>SLA guarantee</li>
+          <li>Dedicated success manager</li>
+        </ul>
+        <a href="#cta" class="btn-plan-ghost">Contact Sales</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="testimonials-header">
+      <p class="section-label">// customer stories</p>
+      <h2 class="section-title">Trusted by data teams<br>worldwide.</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"NovaTech replaced 3 separate tools we were paying for. Our reporting time dropped from days to minutes."</p>
+        <div class="tcard-author-name">Rachel Nguyen</div>
+        <div class="tcard-author-role">Head of Analytics, Skybridge</div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"The AI insights feature caught a revenue anomaly our team missed for two weeks. It paid for itself in day one."</p>
+        <div class="tcard-author-name">Tom Eriksen</div>
+        <div class="tcard-author-role">CTO, Orbital Systems</div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p class="tcard-quote">"Finally a BI tool that doesn't need a PhD to configure. Our non-technical team uses it every day now."</p>
+        <div class="tcard-author-name">Amara Osei</div>
+        <div class="tcard-author-role">VP Product, Prism Data</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta" class="cta-section">
+    <div class="cta-content">
+      <h2 class="cta-title">Start making sense<br>of your data <span class="gradient-text">today.</span></h2>
+      <p class="cta-sub">14-day free trial. No credit card. Cancel anytime. Setup in under 5 minutes.</p>
+      <div class="cta-form">
+        <input type="email" placeholder="Enter your work email" />
+        <a href="#" class="btn-primary" style="white-space:nowrap">Get Started →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="logo">Nova<span>Tech</span></a>
+    <ul class="footer-nav">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#preview">Product</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 NovaTech Ltd. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

@@ -41,6 +41,7 @@
     <ul class="nav-links" id="nav-links">
       <li><a href="#services">Services</a></li>
       <li><a href="#portfolio">Work</a></li>
+      <li><a href="#demos">Demos</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
     </ul>
@@ -208,6 +209,184 @@
 
       <div class="portfolio-cta reveal">
         <a href="#contact" class="btn btn-primary">Start Your Project</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Demo Sites ─── -->
+  <section class="section demos" id="demos">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag tag-green">Live Demos</span>
+        <h2 class="section-title">See what we can<br>build for you.</h2>
+        <p class="section-sub">Click any demo to explore it live — each one is a fully interactive example site.</p>
+      </div>
+
+      <div class="demos-grid">
+
+        <div class="demo-card reveal" data-demo="demos/demo1.html" data-label="Photography Studio" data-style="Modern &amp; Minimal">
+          <div class="demo-preview">
+            <iframe src="demos/demo1.html" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+          </div>
+          <div class="demo-info">
+            <div class="demo-meta">
+              <span class="demo-tag">Modern &amp; Minimal</span>
+            </div>
+            <h3 class="demo-title">Lumière Photography Studio</h3>
+            <button class="demo-open-btn">View Demo <span>→</span></button>
+          </div>
+        </div>
+
+        <div class="demo-card reveal" data-demo="demos/demo2.html" data-label="Gym &amp; Fitness" data-style="Bold &amp; Colourful">
+          <div class="demo-preview">
+            <iframe src="demos/demo2.html" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+          </div>
+          <div class="demo-info">
+            <div class="demo-meta">
+              <span class="demo-tag demo-tag-orange">Bold &amp; Colourful</span>
+            </div>
+            <h3 class="demo-title">PeakFit Gym</h3>
+            <button class="demo-open-btn">View Demo <span>→</span></button>
+          </div>
+        </div>
+
+        <div class="demo-card reveal" data-demo="demos/demo3.html" data-label="SaaS / Tech" data-style="Dark &amp; Sleek">
+          <div class="demo-preview">
+            <iframe src="demos/demo3.html" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+          </div>
+          <div class="demo-info">
+            <div class="demo-meta">
+              <span class="demo-tag demo-tag-purple">Dark &amp; Sleek</span>
+            </div>
+            <h3 class="demo-title">NovaTech SaaS</h3>
+            <button class="demo-open-btn">View Demo <span>→</span></button>
+          </div>
+        </div>
+
+        <div class="demo-card reveal" data-demo="demos/demo4.html" data-label="Bakery &amp; Café" data-style="Warm &amp; Friendly">
+          <div class="demo-preview">
+            <iframe src="demos/demo4.html" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+          </div>
+          <div class="demo-info">
+            <div class="demo-meta">
+              <span class="demo-tag demo-tag-warm">Warm &amp; Friendly</span>
+            </div>
+            <h3 class="demo-title">The Golden Loaf Bakery</h3>
+            <button class="demo-open-btn">View Demo <span>→</span></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Modal -->
+  <div class="demo-modal" id="demo-modal" role="dialog" aria-modal="true" aria-label="Demo preview">
+    <div class="demo-modal-bar">
+      <div class="demo-modal-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="demo-modal-url" id="demo-modal-url"></div>
+      <div class="demo-modal-actions">
+        <a class="demo-modal-new" id="demo-modal-new" target="_blank" rel="noopener" title="Open in new tab">↗</a>
+        <button class="demo-modal-close" id="demo-modal-close" aria-label="Close">✕</button>
+      </div>
+    </div>
+    <iframe class="demo-modal-frame" id="demo-modal-frame" src="" title="Demo preview"></iframe>
+  </div>
+  <div class="demo-modal-backdrop" id="demo-modal-backdrop"></div>
+
+  <!-- ─── Demos ─── -->
+  <section class="section demos" id="demos">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag tag-orange">Live Demos</span>
+        <h2 class="section-title">See what we can<br>build for you.</h2>
+        <p class="demos-sub">Click any preview to explore the full site.</p>
+      </div>
+
+      <div class="demos-grid">
+
+        <div class="demo-card reveal">
+          <div class="demo-chrome">
+            <div class="demo-chrome-dots"><span></span><span></span><span></span></div>
+            <div class="demo-chrome-bar">Lumière Photography Studio</div>
+          </div>
+          <div class="demo-frame-wrap">
+            <iframe src="demos/demo1.html" class="demo-frame" scrolling="no" tabindex="-1" loading="lazy" title="Lumière Photography Studio demo"></iframe>
+            <a href="demos/demo1.html" target="_blank" rel="noopener" class="demo-overlay">
+              <span class="demo-cta">Open Demo →</span>
+            </a>
+          </div>
+          <div class="demo-meta">
+            <div>
+              <h3>Lumière</h3>
+              <p>Photography Studio</p>
+            </div>
+            <a href="demos/demo1.html" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">View →</a>
+          </div>
+        </div>
+
+        <div class="demo-card reveal">
+          <div class="demo-chrome">
+            <div class="demo-chrome-dots"><span></span><span></span><span></span></div>
+            <div class="demo-chrome-bar">PeakFit — Gym &amp; Performance Centre</div>
+          </div>
+          <div class="demo-frame-wrap">
+            <iframe src="demos/demo2.html" class="demo-frame" scrolling="no" tabindex="-1" loading="lazy" title="PeakFit Gym demo"></iframe>
+            <a href="demos/demo2.html" target="_blank" rel="noopener" class="demo-overlay">
+              <span class="demo-cta">Open Demo →</span>
+            </a>
+          </div>
+          <div class="demo-meta">
+            <div>
+              <h3>PeakFit</h3>
+              <p>Gym &amp; Performance Centre</p>
+            </div>
+            <a href="demos/demo2.html" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">View →</a>
+          </div>
+        </div>
+
+        <div class="demo-card reveal">
+          <div class="demo-chrome">
+            <div class="demo-chrome-dots"><span></span><span></span><span></span></div>
+            <div class="demo-chrome-bar">NovaTech — AI Business Intelligence</div>
+          </div>
+          <div class="demo-frame-wrap">
+            <iframe src="demos/demo3.html" class="demo-frame" scrolling="no" tabindex="-1" loading="lazy" title="NovaTech SaaS demo"></iframe>
+            <a href="demos/demo3.html" target="_blank" rel="noopener" class="demo-overlay">
+              <span class="demo-cta">Open Demo →</span>
+            </a>
+          </div>
+          <div class="demo-meta">
+            <div>
+              <h3>NovaTech</h3>
+              <p>AI Business Intelligence</p>
+            </div>
+            <a href="demos/demo3.html" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">View →</a>
+          </div>
+        </div>
+
+        <div class="demo-card reveal">
+          <div class="demo-chrome">
+            <div class="demo-chrome-dots"><span></span><span></span><span></span></div>
+            <div class="demo-chrome-bar">The Golden Loaf — Artisan Bakery &amp; Café</div>
+          </div>
+          <div class="demo-frame-wrap">
+            <iframe src="demos/demo4.html" class="demo-frame" scrolling="no" tabindex="-1" loading="lazy" title="The Golden Loaf Bakery demo"></iframe>
+            <a href="demos/demo4.html" target="_blank" rel="noopener" class="demo-overlay">
+              <span class="demo-cta">Open Demo →</span>
+            </a>
+          </div>
+          <div class="demo-meta">
+            <div>
+              <h3>The Golden Loaf</h3>
+              <p>Artisan Bakery &amp; Café</p>
+            </div>
+            <a href="demos/demo4.html" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">View →</a>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
