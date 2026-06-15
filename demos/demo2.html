@@ -245,21 +245,19 @@
       overflow: hidden;
     }
 
-    .hero-image-col .img-fill {
+    .hero-image-col img {
       width: 100%;
       height: 100%;
-      background: linear-gradient(160deg, #ff5c1a22 0%, #4b1fd422 40%, #0e0e12 100%);
-      position: relative;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.55;
     }
 
-    .hero-image-col .img-fill::after {
-      content: '💪';
-      font-size: 180px;
+    .hero-image-col::after {
+      content: '';
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0.06;
+      inset: 0;
+      background: linear-gradient(to right, var(--dark) 0%, transparent 40%);
     }
 
     /* MARQUEE */
@@ -358,7 +356,20 @@
 
     .class-body { padding: 28px; }
 
-    .class-icon { font-size: 36px; margin-bottom: 16px; }
+    .class-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .class-card:nth-child(1) .class-icon { background: rgba(255,92,26,0.1); color: var(--orange); }
+    .class-card:nth-child(2) .class-icon { background: rgba(255,210,0,0.1); color: #b89500; }
+    .class-card:nth-child(3) .class-icon { background: rgba(75,31,212,0.1); color: var(--purple); }
+    .class-card:nth-child(4) .class-icon { background: rgba(0,196,163,0.1); color: #00c4a3; }
 
     .class-name {
       font-family: 'Barlow Condensed', sans-serif;
@@ -418,22 +429,22 @@
       overflow: hidden;
     }
 
-    .trainer-card:nth-child(1) .trainer-img { background: linear-gradient(160deg, #ff5c1a66, #0e0e12); }
-    .trainer-card:nth-child(2) .trainer-img { background: linear-gradient(160deg, #ffd20066, #0e0e12); }
-    .trainer-card:nth-child(3) .trainer-img { background: linear-gradient(160deg, #4b1fd466, #0e0e12); }
+    .trainer-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.5s ease;
+    }
 
-    .trainer-avatar {
+    .trainer-card:hover .trainer-img img { transform: scale(1.05); }
+
+    .trainer-img::after {
+      content: '';
       position: absolute;
-      bottom: 20px;
-      left: 20px;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
+      inset: 0;
+      background: linear-gradient(to top, rgba(14,14,18,0.85) 0%, rgba(14,14,18,0.2) 60%, transparent 100%);
     }
 
     .trainer-info { padding: 20px 0; }
@@ -641,6 +652,22 @@
       font-weight: 700;
     }
 
+    .contact-address {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: #666;
+      font-size: 13px;
+      flex-wrap: wrap;
+    }
+
+    .contact-address-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #666;
+    }
+
     .contact-form input,
     .contact-form select,
     .contact-form textarea {
@@ -740,13 +767,13 @@
           <div class="hero-stat-label">Weekly classes</div>
         </div>
         <div>
-          <div class="hero-stat-num">18<span></span></div>
+          <div class="hero-stat-num">18</div>
           <div class="hero-stat-label">Expert coaches</div>
         </div>
       </div>
     </div>
     <div class="hero-image-col">
-      <div class="img-fill"></div>
+      <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&auto=format&fit=crop&q=80" alt="PeakFit gym interior" loading="lazy">
     </div>
   </section>
 
@@ -785,7 +812,9 @@
       <div class="class-card">
         <div class="class-color-bar"></div>
         <div class="class-body">
-          <div class="class-icon">🔥</div>
+          <div class="class-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
           <div class="class-name">HIIT Blast</div>
           <p class="class-desc">High-intensity interval training designed to torch calories and build cardiovascular power in 45 explosive minutes.</p>
           <div class="class-meta">
@@ -798,7 +827,9 @@
       <div class="class-card">
         <div class="class-color-bar"></div>
         <div class="class-body">
-          <div class="class-icon">🏋️</div>
+          <div class="class-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="18" y2="12"/><path d="M4 8v8M8 6v12M16 6v12M20 8v8"/></svg>
+          </div>
           <div class="class-name">Strength Lab</div>
           <p class="class-desc">Structured barbell and dumbbell programming to build real, functional strength. Coached lifts and progressive overload.</p>
           <div class="class-meta">
@@ -811,7 +842,9 @@
       <div class="class-card">
         <div class="class-color-bar"></div>
         <div class="class-body">
-          <div class="class-icon">🥊</div>
+          <div class="class-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </div>
           <div class="class-name">Box Fit</div>
           <p class="class-desc">Punch, move, and sweat through a boxing-inspired circuit that builds speed, agility, and serious conditioning.</p>
           <div class="class-meta">
@@ -824,7 +857,9 @@
       <div class="class-card">
         <div class="class-color-bar"></div>
         <div class="class-body">
-          <div class="class-icon">🧘</div>
+          <div class="class-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l3-9 4 18 3-9h4"/></svg>
+          </div>
           <div class="class-name">Recovery Flow</div>
           <p class="class-desc">Mobility, stretching, and breathwork to keep you training hard day after day without burning out.</p>
           <div class="class-meta">
@@ -848,7 +883,7 @@
     <div class="trainers-grid">
       <div class="trainer-card">
         <div class="trainer-img">
-          <div class="trainer-avatar">💪</div>
+          <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=600&auto=format&fit=crop&q=80" alt="Jake Morrison — Head Coach" loading="lazy">
         </div>
         <div class="trainer-info">
           <div class="trainer-name">Jake Morrison</div>
@@ -857,7 +892,7 @@
       </div>
       <div class="trainer-card">
         <div class="trainer-img">
-          <div class="trainer-avatar">🏃</div>
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&auto=format&fit=crop&q=80" alt="Priya Nair — HIIT Specialist" loading="lazy">
         </div>
         <div class="trainer-info">
           <div class="trainer-name">Priya Nair</div>
@@ -866,7 +901,7 @@
       </div>
       <div class="trainer-card">
         <div class="trainer-img">
-          <div class="trainer-avatar">🥊</div>
+          <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&auto=format&fit=crop&q=80" alt="Carlos Reyes — Boxing Coach" loading="lazy">
         </div>
         <div class="trainer-info">
           <div class="trainer-name">Carlos Reyes</div>
@@ -944,7 +979,17 @@
           <li>Cancel anytime, no hassle</li>
           <li>Free induction session included</li>
         </ul>
-        <p style="color:#666;font-size:13px">📍 12 Athletic Way, Manchester M4 1AB &nbsp;·&nbsp; 📞 0161 234 5678</p>
+        <div class="contact-address">
+          <div class="contact-address-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            12 Athletic Way, Manchester M4 1AB
+          </div>
+          <span style="opacity:0.3">·</span>
+          <div class="contact-address-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.94 3.37a2 2 0 0 1 2-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            0161 234 5678
+          </div>
+        </div>
       </div>
       <div class="contact-form">
         <input type="text" placeholder="Full name" />

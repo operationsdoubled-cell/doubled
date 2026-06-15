@@ -118,8 +118,6 @@
       width: fit-content;
     }
 
-    .hero-tag::before { content: '🌿'; }
-
     h1 {
       font-family: 'Lora', serif;
       font-size: clamp(44px, 5.5vw, 76px);
@@ -194,7 +192,11 @@
       color: var(--muted);
     }
 
-    .hero-perk-icon { font-size: 20px; }
+    .hero-perk-icon {
+      color: var(--green);
+      display: flex;
+      align-items: center;
+    }
 
     .hero-right {
       background: var(--tan);
@@ -210,29 +212,15 @@
       overflow: hidden;
     }
 
-    .hero-img-cell .fill {
+    .hero-img-cell img {
       width: 100%;
       height: 100%;
+      object-fit: cover;
       display: block;
       transition: transform 0.5s ease;
     }
 
-    .hero-img-cell:hover .fill { transform: scale(1.05); }
-
-    .fill-1 { background: linear-gradient(160deg, #d4a96a 0%, #8b5e3c 100%); }
-    .fill-2 { background: linear-gradient(160deg, #c9a05a 0%, #7a4f2e 100%); }
-    .fill-3 { background: linear-gradient(160deg, #e0be88 0%, #a06c3a 100%); }
-    .fill-4 { background: linear-gradient(160deg, #c4b090 0%, #8a6040 100%); }
-
-    .fill-emoji {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 64px;
-      opacity: 0.35;
-    }
+    .hero-img-cell:hover img { transform: scale(1.05); }
 
     /* MENU BAND */
     .opening-band {
@@ -256,7 +244,11 @@
 
     .opening-item strong { color: var(--tan); }
 
-    .opening-item-icon { font-size: 18px; }
+    .opening-item-icon {
+      color: rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
+    }
 
     /* MARQUEE */
     .marquee-wrapper {
@@ -340,9 +332,12 @@
       position: relative;
     }
 
-    .about-image .fill { width: 100%; height: 100%; }
-    .about-image .fill-main { background: linear-gradient(160deg, #e0be88 0%, #8b5e3c 100%); }
-    .about-image .fill-emoji { font-size: 100px; opacity: 0.3; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
     .about-floating-card {
       position: absolute;
@@ -467,22 +462,15 @@
       overflow: hidden;
     }
 
-    .menu-card:nth-child(1) .menu-img { background: linear-gradient(135deg, #d4a96a, #8b5e3c); }
-    .menu-card:nth-child(2) .menu-img { background: linear-gradient(135deg, #c9b090, #7a5030); }
-    .menu-card:nth-child(3) .menu-img { background: linear-gradient(135deg, #e0c080, #a06030); }
-    .menu-card:nth-child(4) .menu-img { background: linear-gradient(135deg, #b8c880, #4a6740); }
-    .menu-card:nth-child(5) .menu-img { background: linear-gradient(135deg, #d4b090, #9a6040); }
-    .menu-card:nth-child(6) .menu-img { background: linear-gradient(135deg, #c0a870, #704020); }
-
-    .menu-img-emoji {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 60px;
-      opacity: 0.5;
+    .menu-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
     }
+
+    .menu-card:hover .menu-img img { transform: scale(1.05); }
 
     .menu-badge {
       position: absolute;
@@ -604,7 +592,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      color: var(--tan);
       flex-shrink: 0;
     }
 
@@ -623,9 +611,16 @@
     .map-placeholder {
       text-align: center;
       color: rgba(253,248,240,0.3);
+      position: relative;
+      z-index: 1;
     }
 
-    .map-placeholder-icon { font-size: 64px; margin-bottom: 16px; opacity: 0.5; }
+    .map-placeholder-icon {
+      margin-bottom: 16px;
+      opacity: 0.5;
+      display: flex;
+      justify-content: center;
+    }
 
     .map-placeholder-text { font-family: 'Lora', serif; font-size: 18px; font-style: italic; }
 
@@ -766,7 +761,10 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-left">
-      <div class="hero-tag">Baked fresh every morning</div>
+      <div class="hero-tag">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M5 3h14"/><path d="M5 3l7 9 7-9"/></svg>
+        Baked fresh every morning
+      </div>
       <h1>
         Baked with love,<br>
         served with <em>warmth.</em>
@@ -780,47 +778,63 @@
       </div>
       <div class="hero-perks">
         <div class="hero-perk">
-          <span class="hero-perk-icon">🌾</span>
+          <span class="hero-perk-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.25C3.09 20.39 4 22 5.5 22C9 22 12 18 12 18C12 18 15 22 18.5 22C20 22 20.91 20.39 20.18 19.25C19 17 18 12 17 8z"/></svg>
+          </span>
           <span>Locally sourced flour</span>
         </div>
         <div class="hero-perk">
-          <span class="hero-perk-icon">🍃</span>
+          <span class="hero-perk-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </span>
           <span>No additives</span>
         </div>
         <div class="hero-perk">
-          <span class="hero-perk-icon">☕</span>
+          <span class="hero-perk-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          </span>
           <span>Specialty coffee</span>
         </div>
       </div>
     </div>
     <div class="hero-right">
-      <div class="hero-img-cell"><div class="fill fill-1"><div class="fill-emoji">🍞</div></div></div>
-      <div class="hero-img-cell"><div class="fill fill-2"><div class="fill-emoji">🥐</div></div></div>
-      <div class="hero-img-cell"><div class="fill fill-3"><div class="fill-emoji">☕</div></div></div>
-      <div class="hero-img-cell"><div class="fill fill-4"><div class="fill-emoji">🧁</div></div></div>
+      <div class="hero-img-cell"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&auto=format&fit=crop&q=80" alt="Artisan sourdough" loading="lazy"></div>
+      <div class="hero-img-cell"><img src="https://images.unsplash.com/photo-1623334044303-241021148842?w=800&auto=format&fit=crop&q=80" alt="Croissants" loading="lazy"></div>
+      <div class="hero-img-cell"><img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&auto=format&fit=crop&q=80" alt="Specialty coffee" loading="lazy"></div>
+      <div class="hero-img-cell"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop&q=80" alt="Pastries" loading="lazy"></div>
     </div>
   </section>
 
   <!-- OPENING BAND -->
   <div class="opening-band">
     <div class="opening-item">
-      <span class="opening-item-icon">🕐</span>
+      <span class="opening-item-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </span>
       <span>Mon–Fri: <strong>7am – 5pm</strong></span>
     </div>
     <div class="opening-item">
-      <span class="opening-item-icon">🕐</span>
+      <span class="opening-item-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </span>
       <span>Saturday: <strong>8am – 4pm</strong></span>
     </div>
     <div class="opening-item">
-      <span class="opening-item-icon">🕐</span>
+      <span class="opening-item-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </span>
       <span>Sunday: <strong>9am – 2pm</strong></span>
     </div>
     <div class="opening-item">
-      <span class="opening-item-icon">📍</span>
+      <span class="opening-item-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </span>
       <span>14 Corn Street, <strong>Bristol BS1 1HT</strong></span>
     </div>
     <div class="opening-item">
-      <span class="opening-item-icon">📞</span>
+      <span class="opening-item-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.94 3.37a2 2 0 0 1 2-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </span>
       <span><strong>0117 456 7890</strong></span>
     </div>
   </div>
@@ -850,15 +864,14 @@
   <!-- ABOUT -->
   <section id="about" class="about">
     <div class="about-image" style="position:relative">
-      <div class="fill fill-main" style="width:100%;height:100%;border-radius:24px"></div>
-      <div class="fill-emoji" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:100px;opacity:0.25">🍞</div>
+      <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=1000&auto=format&fit=crop&q=80" alt="Baker at work" loading="lazy">
       <div class="about-floating-card">
         <div class="num">15+</div>
         <div class="label">Years baking in Bristol</div>
       </div>
     </div>
     <div class="about-text">
-      <p class="section-tag">🌾 Our Story</p>
+      <p class="section-tag">Our Story</p>
       <h2 class="section-title">A family tradition,<br><em>one loaf at a time.</em></h2>
       <div class="divider"></div>
       <p>The Golden Loaf was born from a simple idea: that bread should taste like bread. Not the packaged, shelf-stable kind — but the kind that fills a kitchen with warmth and comes out of the oven with a perfect crackling crust.</p>
@@ -876,7 +889,7 @@
   <section id="menu" class="menu-section">
     <div class="menu-header">
       <div>
-        <p class="section-tag">🥐 What's on offer</p>
+        <p class="section-tag">What's on offer</p>
         <h2 class="section-title">Fresh from the<br><em>oven today.</em></h2>
       </div>
       <a href="#location" class="btn-outline-brown">Visit to see full menu</a>
@@ -890,7 +903,7 @@
     <div class="menu-grid">
       <div class="menu-card">
         <div class="menu-img">
-          <div class="menu-img-emoji">🍞</div>
+          <img src="https://images.unsplash.com/photo-1585478259715-4b4e7e17bd31?w=600&auto=format&fit=crop&q=80" alt="Country Sourdough" loading="lazy">
         </div>
         <div class="menu-body">
           <div class="menu-name">Country Sourdough</div>
@@ -903,7 +916,7 @@
       </div>
       <div class="menu-card">
         <div class="menu-img">
-          <div class="menu-img-emoji">🫓</div>
+          <img src="https://images.unsplash.com/photo-1513185158878-8d8c2a2a3da3?w=600&auto=format&fit=crop&q=80" alt="Rosemary Focaccia" loading="lazy">
           <span class="menu-badge">Fan Fave</span>
         </div>
         <div class="menu-body">
@@ -917,7 +930,7 @@
       </div>
       <div class="menu-card">
         <div class="menu-img">
-          <div class="menu-img-emoji">🥐</div>
+          <img src="https://images.unsplash.com/photo-1623334044303-241021148842?w=600&auto=format&fit=crop&q=80" alt="Butter Croissant" loading="lazy">
           <span class="menu-badge">New</span>
         </div>
         <div class="menu-body">
@@ -931,7 +944,7 @@
       </div>
       <div class="menu-card">
         <div class="menu-img">
-          <div class="menu-img-emoji">🌿</div>
+          <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc7b?w=600&auto=format&fit=crop&q=80" alt="Seeded Spelt Loaf" loading="lazy">
         </div>
         <div class="menu-body">
           <div class="menu-name">Seeded Spelt Loaf</div>
@@ -944,7 +957,7 @@
       </div>
       <div class="menu-card">
         <div class="menu-img">
-          <div class="menu-img-emoji">🧁</div>
+          <img src="https://images.unsplash.com/photo-1509365390695-33aee754301f?w=600&auto=format&fit=crop&q=80" alt="Cinnamon Roll" loading="lazy">
         </div>
         <div class="menu-body">
           <div class="menu-name">Cinnamon Roll</div>
@@ -957,7 +970,7 @@
       </div>
       <div class="menu-card">
         <div class="menu-img">
-          <div class="menu-img-emoji">☕</div>
+          <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&auto=format&fit=crop&q=80" alt="Flat White" loading="lazy">
         </div>
         <div class="menu-body">
           <div class="menu-name">Flat White</div>
@@ -974,7 +987,7 @@
   <!-- TESTIMONIALS -->
   <section class="testimonials">
     <div class="testimonials-header">
-      <p class="section-tag">💬 What people say</p>
+      <p class="section-tag">What people say</p>
       <h2 class="section-title">Our customers say it<br><em>best.</em></h2>
       <p class="section-sub">We're rated 4.9 stars on Google with over 600 reviews.</p>
     </div>
@@ -1003,32 +1016,40 @@
   <!-- LOCATION -->
   <div id="location" class="location-section">
     <div class="location-info">
-      <p class="section-tag">📍 Find us</p>
+      <p class="section-tag">Find us</p>
       <h2 class="section-title">Come say <em>hello.</em></h2>
       <div class="location-details">
         <div class="location-detail">
-          <div class="location-detail-icon">📍</div>
+          <div class="location-detail-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
           <div class="location-detail-text">
             <strong>Address</strong>
             14 Corn Street, Bristol BS1 1HT<br>Near the Corn Exchange, city centre
           </div>
         </div>
         <div class="location-detail">
-          <div class="location-detail-icon">🕐</div>
+          <div class="location-detail-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
           <div class="location-detail-text">
             <strong>Opening Hours</strong>
             Mon–Fri: 7am – 5pm · Sat: 8am – 4pm · Sun: 9am – 2pm
           </div>
         </div>
         <div class="location-detail">
-          <div class="location-detail-icon">📞</div>
+          <div class="location-detail-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.94 3.37a2 2 0 0 1 2-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
           <div class="location-detail-text">
             <strong>Phone</strong>
             0117 456 7890
           </div>
         </div>
         <div class="location-detail">
-          <div class="location-detail-icon">✉️</div>
+          <div class="location-detail-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
           <div class="location-detail-text">
             <strong>Email</strong>
             hello@thegoldenloaf.co.uk
@@ -1039,7 +1060,9 @@
     <div class="location-map">
       <div class="map-grid-lines"></div>
       <div class="map-placeholder">
-        <div class="map-placeholder-icon">📍</div>
+        <div class="map-placeholder-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
         <p class="map-placeholder-text">14 Corn Street, Bristol</p>
       </div>
     </div>

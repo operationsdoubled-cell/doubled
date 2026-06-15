@@ -523,7 +523,7 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      font-size: 16px;
+      color: var(--accent);
     }
 
     .contact-detail-text { font-size: 13px; color: #555; line-height: 1.6; }
@@ -563,21 +563,6 @@
       text-align: right;
       font-size: 12px;
       color: #555;
-    }
-
-    /* PLACEHOLDER IMAGES via CSS gradients */
-    .img-portrait-1 { background: linear-gradient(135deg, #d4c4a8 0%, #8b7355 100%); }
-    .img-portrait-2 { background: linear-gradient(135deg, #c9b99a 0%, #7a6245 100%); }
-    .img-land-1 { background: linear-gradient(160deg, #e8ddd0 0%, #a89070 100%); }
-    .img-land-2 { background: linear-gradient(160deg, #ddd0c0 0%, #9a8060 100%); }
-    .img-land-3 { background: linear-gradient(160deg, #cfc4b0 0%, #8a7050 100%); }
-    .img-land-4 { background: linear-gradient(160deg, #d5c8b5 0%, #967a58 100%); }
-
-    .img-block {
-      width: 100%;
-      height: 100%;
-      min-height: 260px;
-      display: block;
     }
 
     /* DIVIDER */
@@ -621,7 +606,7 @@
       </div>
     </div>
     <div class="hero-right">
-      <div class="img-block img-portrait-1"></div>
+      <img class="main-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1200&auto=format&fit=crop&q=80" alt="Studio portrait" loading="lazy">
       <div class="hero-float">
         <div class="hero-float-num">12+</div>
         <div class="hero-float-label">Years of experience</div>
@@ -650,8 +635,8 @@
   <!-- ABOUT -->
   <section id="about" class="about">
     <div class="about-images">
-      <div class="about-img"><div class="img-block img-portrait-2"></div></div>
-      <div class="about-img"><div class="img-block img-land-1"></div></div>
+      <div class="about-img"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80" alt="Portrait session" loading="lazy"></div>
+      <div class="about-img"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&auto=format&fit=crop&q=80" alt="Wedding photography" loading="lazy"></div>
     </div>
     <div class="about-text">
       <p class="section-label">Our Story</p>
@@ -715,23 +700,23 @@
     </div>
     <div class="portfolio-grid">
       <div class="port-item">
-        <div class="img-block img-portrait-1" style="min-height:560px"></div>
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=1000&auto=format&fit=crop&q=80" alt="Portrait — The Harper Family" style="min-height:560px" loading="lazy">
         <div class="port-overlay"><span class="port-label">Portrait — The Harper Family</span></div>
       </div>
       <div class="port-item">
-        <div class="img-block img-land-2"></div>
+        <img src="https://images.unsplash.com/photo-1519225421980-716b69bf8f3a?w=800&auto=format&fit=crop&q=80" alt="Wedding — Smith & Jones" loading="lazy">
         <div class="port-overlay"><span class="port-label">Wedding — Smith & Jones</span></div>
       </div>
       <div class="port-item">
-        <div class="img-block img-land-3"></div>
+        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&auto=format&fit=crop&q=80" alt="Commercial — Arden Brand" loading="lazy">
         <div class="port-overlay"><span class="port-label">Commercial — Arden Brand</span></div>
       </div>
       <div class="port-item">
-        <div class="img-block img-land-1"></div>
+        <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80" alt="Editorial — Vogue Shoot" loading="lazy">
         <div class="port-overlay"><span class="port-label">Editorial — Vogue Shoot</span></div>
       </div>
       <div class="port-item">
-        <div class="img-block img-land-4"></div>
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&auto=format&fit=crop&q=80" alt="Portrait — CEO Series" loading="lazy">
         <div class="port-overlay"><span class="port-label">Portrait — CEO Series</span></div>
       </div>
     </div>
@@ -768,21 +753,27 @@
       <div class="divider"></div>
       <p>Whether you have a project in mind or just want to explore what's possible, we'd love to hear from you.</p>
       <div class="contact-detail">
-        <div class="contact-detail-icon">📍</div>
+        <div class="contact-detail-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
         <div class="contact-detail-text">
           <strong>Studio Address</strong>
           12 Meridian Lane, London W1K 4AB
         </div>
       </div>
       <div class="contact-detail">
-        <div class="contact-detail-icon">📞</div>
+        <div class="contact-detail-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.94 3.37a2 2 0 0 1 2-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
         <div class="contact-detail-text">
           <strong>Phone</strong>
           +44 (0)20 7123 4567
         </div>
       </div>
       <div class="contact-detail">
-        <div class="contact-detail-icon">✉️</div>
+        <div class="contact-detail-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
         <div class="contact-detail-text">
           <strong>Email</strong>
           hello@lumierestudio.co.uk
