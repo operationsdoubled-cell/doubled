@@ -719,13 +719,11 @@ h1, h2, h3, h4 {
 /* ─── Portfolio ─── */
 .portfolio { background: var(--bg); }
 
-/* Reel outer — drag-scrollable, fades edges */
+/* Reel outer — hides overflow for CSS-transform scroll, fades edges */
 .portfolio-reel-wrap {
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: hidden;
   padding: 52px 0;
   cursor: grab;
-  scrollbar-width: none;
   mask-image: linear-gradient(
     to right,
     transparent 0%,
@@ -742,13 +740,17 @@ h1, h2, h3, h4 {
   );
 }
 
-.portfolio-reel-wrap::-webkit-scrollbar { display: none; }
-.portfolio-reel-wrap.dragging { cursor: grabbing; }
-.portfolio-reel-wrap.dragging .reel-item { pointer-events: none; }
+.portfolio-reel-wrap.dragging          { cursor: grabbing; }
+.portfolio-reel-wrap.dragging .reel-item { pointer-events: none; user-select: none; }
 
 .portfolio-reel {
   display: flex;
   width: max-content;
+  animation: reel-scroll 30s linear infinite; /* duration overridden by JS */
+}
+
+@keyframes reel-scroll {
+  to { transform: translateX(-50%); }
 }
 
 /* Individual reel card */
@@ -786,7 +788,19 @@ h1, h2, h3, h4 {
   filter: brightness(0.55) saturate(0.65);
 }
 
+/* Blurred atmospheric fill — shows behind contain images so no black gap */
+.reel-bg {
+  position: absolute;
+  inset: -12%;
+  background-size: cover;
+  background-position: top center;
+  filter: blur(22px) brightness(0.28) saturate(1.4);
+  z-index: 0;
+}
+
 .reel-item img {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -806,6 +820,7 @@ h1, h2, h3, h4 {
 .reel-overlay {
   position: absolute;
   inset: 0;
+  z-index: 2;
   background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.15) 55%, transparent 100%);
   display: flex;
   flex-direction: column;

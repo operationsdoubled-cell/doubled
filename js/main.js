@@ -35,7 +35,7 @@ const PORTFOLIO = [
 ];
 
 /* ─────────────────────────────────────────────
-   BUILD PORTFOLIO REEL (auto-scroll + drag)
+   BUILD PORTFOLIO REEL (CSS auto-scroll + drag)
    ───────────────────────────────────────────── */
 (function buildPortfolio() {
   const wrap = document.querySelector('.portfolio-reel-wrap');
@@ -49,7 +49,12 @@ const PORTFOLIO = [
     el.className = 'reel-item';
 
     if (item.image) {
+      // Blurred atmospheric fill behind contain images — eliminates dark gap
+      const bg = item.contain
+        ? `<div class="reel-bg" style="background-image:url('${item.image}')"></div>`
+        : '';
       el.innerHTML = `
+        ${bg}
         <img src="${item.image}" alt="${item.title}" loading="lazy" draggable="false"${item.contain ? ' class="img-contain"' : ''}>
         <div class="reel-overlay">
           <h3>${item.title}</h3>
@@ -70,7 +75,7 @@ const PORTFOLIO = [
     return el;
   }
 
-  // Build original set + clone for seamless loop
+  // Build original set + clone for seamless CSS-transform loop
   PORTFOLIO.forEach(item => reel.appendChild(createItem(item)));
   [...reel.children].forEach(el => {
     const clone = el.cloneNode(true);
@@ -78,51 +83,64 @@ const PORTFOLIO = [
     reel.appendChild(clone);
   });
 
-  // Auto-scroll via RAF — paused while hovering/dragging
-  let paused   = false;
-  let lastTs   = null;
-  let halfWidth = 0; // read from DOM after layout
-
-  function tick(ts) {
-    if (!halfWidth) halfWidth = reel.scrollWidth / 2;
-    if (!paused) {
-      if (lastTs !== null) {
-        wrap.scrollLeft += SPEED * (ts - lastTs) / 1000;
-        if (wrap.scrollLeft >= halfWidth) wrap.scrollLeft -= halfWidth;
-      }
-      lastTs = ts;
-    } else {
-      lastTs = null;
-    }
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-
-  // Pause auto-scroll on hover; resume on leave
-  wrap.addEventListener('mouseenter', () => { paused = true; });
-  wrap.addEventListener('mouseleave', () => {
-    paused = false;
-    isDown = false;
-    wrap.classList.remove('dragging');
+  // Set animation duration from actual rendered width
+  requestAnimationFrame(() => {
+    const halfWidth  = reel.scrollWidth / 2;
+    const duration   = (halfWidth / SPEED).toFixed(1);
+    reel.style.animationDuration = `${duration}s`;
   });
 
-  // Drag-to-scroll
-  let isDown = false;
-  let startX, scrollLeft;
+  // ── Drag support ──────────────────────────────
+  // We freeze the CSS animation, track the drag offset, then resume
+  // using a negative animation-delay that matches the paused position.
+
+  let isDragging  = false;
+  let dragStartX  = 0;
+  let frozenX     = 0; // translateX value when drag began
+
+  function getTranslateX() {
+    return new DOMMatrix(getComputedStyle(reel).transform).m41;
+  }
+
+  function resumeFrom(x) {
+    const halfWidth = reel.scrollWidth / 2;
+    const duration  = parseFloat(reel.style.animationDuration);
+    // Map x (negative) → position within [0, halfWidth]
+    const pos   = ((-x % halfWidth) + halfWidth) % halfWidth;
+    const delay = -((pos / halfWidth) * duration);
+    reel.style.transform        = '';
+    reel.style.animationDelay   = `${delay}s`;
+    reel.style.animationPlayState = 'running';
+  }
 
   wrap.addEventListener('mousedown', (e) => {
-    isDown     = true;
-    startX     = e.pageX - wrap.offsetLeft;
-    scrollLeft = wrap.scrollLeft;
+    isDragging = true;
+    dragStartX = e.clientX;
+    frozenX    = getTranslateX();
+    reel.style.animationPlayState = 'paused';
     wrap.classList.add('dragging');
   });
-  wrap.addEventListener('mouseup', () => { isDown = false; wrap.classList.remove('dragging'); });
-  wrap.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
     e.preventDefault();
-    const x    = e.pageX - wrap.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    wrap.scrollLeft = scrollLeft - walk;
+    reel.style.transform = `translateX(${frozenX + (e.clientX - dragStartX)}px)`;
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    wrap.classList.remove('dragging');
+    const endX = new DOMMatrix(getComputedStyle(reel).transform).m41;
+    resumeFrom(endX);
+  });
+
+  // Pause on hover (when not mid-drag)
+  wrap.addEventListener('mouseenter', () => {
+    if (!isDragging) reel.style.animationPlayState = 'paused';
+  });
+  wrap.addEventListener('mouseleave', () => {
+    if (!isDragging) reel.style.animationPlayState = 'running';
   });
 })();
 
