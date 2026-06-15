@@ -17,12 +17,14 @@ const PORTFOLIO = [
     category: 'Tree Services · Web Design',
     image:    'assets/images/alltree.png',
     bg:       'pbg-3',
+    contain:  true,
   },
   {
     title:    'Van & Man Removals',
     category: 'Removals · Web Design',
     image:    'assets/images/van-and-man-hero.png',
     bg:       'pbg-1',
+    contain:  true,
   },
   {
     title:    'PowerClean',
@@ -40,9 +42,7 @@ const PORTFOLIO = [
   const reel = document.getElementById('portfolio-reel');
   if (!reel || !wrap) return;
 
-  const ITEM_W   = 480;
-  const ITEM_GAP = 20;
-  const SPEED    = 60; // px per second
+  const SPEED = 60; // px per second
 
   function createItem(item) {
     const el = document.createElement('div');
@@ -50,7 +50,7 @@ const PORTFOLIO = [
 
     if (item.image) {
       el.innerHTML = `
-        <img src="${item.image}" alt="${item.title}" loading="lazy" draggable="false">
+        <img src="${item.image}" alt="${item.title}" loading="lazy" draggable="false"${item.contain ? ' class="img-contain"' : ''}>
         <div class="reel-overlay">
           <h3>${item.title}</h3>
           <span>${item.category}</span>
@@ -78,17 +78,17 @@ const PORTFOLIO = [
     reel.appendChild(clone);
   });
 
-  const oneSetWidth = PORTFOLIO.length * (ITEM_W + ITEM_GAP);
-
   // Auto-scroll via RAF — paused while hovering/dragging
-  let paused = false;
-  let lastTs = null;
+  let paused   = false;
+  let lastTs   = null;
+  let halfWidth = 0; // read from DOM after layout
 
   function tick(ts) {
+    if (!halfWidth) halfWidth = reel.scrollWidth / 2;
     if (!paused) {
       if (lastTs !== null) {
         wrap.scrollLeft += SPEED * (ts - lastTs) / 1000;
-        if (wrap.scrollLeft >= oneSetWidth) wrap.scrollLeft -= oneSetWidth;
+        if (wrap.scrollLeft >= halfWidth) wrap.scrollLeft -= halfWidth;
       }
       lastTs = ts;
     } else {

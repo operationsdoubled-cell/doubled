@@ -797,6 +797,11 @@ h1, h2, h3, h4 {
   -webkit-user-drag: none;
 }
 
+.reel-item img.img-contain {
+  object-fit: contain;
+  object-position: top center;
+}
+
 /* Title overlay on hover */
 .reel-overlay {
   position: absolute;
