@@ -1044,6 +1044,19 @@ h1, h2, h3, h4 {
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* Mobile-friendly demos: show live iframe at native mobile width */
+  .demo-card[data-mobile-ready] .demo-frame-wrap {
+    aspect-ratio: auto;
+    height: 480px;
+  }
+  .demo-card[data-mobile-ready] .demo-frame {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: none !important;
+  }
+  .demo-card[data-mobile-ready] .demo-static-preview { display: none; }
 }
 
 /* ─── About ─── */
