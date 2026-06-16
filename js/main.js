@@ -3,121 +3,136 @@
    ════════════════════════════════════════════ */
 
 /* ─────────────────────────────────────────────
-   PORTFOLIO REEL — auto-scroll + drag
+   PORTFOLIO CONFIG
+   Add your screenshots here. Each entry needs:
+     title    — project name shown on hover
+     category — type label shown on hover
+     image    — path relative to index.html
+                e.g. 'assets/portfolio/project-1.jpg'
+                Set to null to show a placeholder.
    ───────────────────────────────────────────── */
-(function initReel() {
-  const wrap = document.querySelector('.portfolio-reel-wrap');
+const PORTFOLIO = [
+  {
+    title:    '',
+    category: '',
+    image:    'assets/images/alltree-hero.png',
+    bg:       'pbg-1',
+  },
+  {
+    title:    '',
+    category: '',
+    image:    'assets/images/manand-hero.png',
+    bg:       'pbg-2',
+  },
+  {
+    title:    '',
+    category: '',
+    image:    'assets/images/powerclean-hero.png',
+    bg:       'pbg-3',
+  },
+];
+
+/* ─────────────────────────────────────────────
+   BUILD PORTFOLIO REEL (infinite horizontal scroll)
+   ───────────────────────────────────────────── */
+(function buildPortfolio() {
   const reel = document.getElementById('portfolio-reel');
-  if (!wrap || !reel) return;
+  if (!reel) return;
 
-  const SPEED = 60; // px per second
+  const ITEM_W   = 480; // px — must match CSS .reel-item width
+  const ITEM_GAP = 20;  // px — must match CSS .reel-item margin-right
+  const SPEED    = 80;  // px per second
 
-  // Tune duration to actual rendered width so speed stays constant
-  requestAnimationFrame(() => {
-    const half = reel.scrollWidth / 2;
-    reel.style.animationDuration = `${(half / SPEED).toFixed(1)}s`;
-  });
+  function createItem(item) {
+    const el = document.createElement('div');
+    el.className = 'reel-item';
 
-  let isDragging = false;
-  let startX     = 0;
-  let startTX    = 0; // translateX when drag began
+    if (item.image) {
+      const overlay = item.title
+        ? `<div class="reel-overlay"><h3>${item.title}</h3><span>${item.category}</span></div>`
+        : '';
+      el.innerHTML = `
+        <img src="${item.image}" alt="${item.title}" loading="lazy" draggable="false">
+        ${overlay}
+      `;
+    } else {
+      el.innerHTML = `
+        <div class="reel-placeholder ${item.bg}">
+          <div class="placeholder-inner">
+            <div class="placeholder-plus">+</div>
+            <span class="placeholder-label">Coming Soon</span>
+          </div>
+        </div>
+      `;
+    }
 
-  // Resume the CSS animation from a given translateX position
-  function resumeFrom(x) {
-    const half     = reel.scrollWidth / 2;
-    const duration = parseFloat(reel.style.animationDuration);
-    const pos      = ((-x % half) + half) % half;        // normalise into [0, half)
-    const delay    = -((pos / half) * duration);          // negative = already elapsed
-    reel.style.transform = '';
-    reel.style.animation = `reel-scroll ${duration}s ${delay}s linear infinite`;
+    return el;
   }
 
-  wrap.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    startX     = e.clientX;
-    // Read current animated position BEFORE killing the animation
-    startTX    = new DOMMatrix(getComputedStyle(reel).transform).m41;
-    // Kill animation so inline transform isn't overridden by it
-    reel.style.animation = 'none';
-    reel.style.transform = `translateX(${startTX}px)`;
-    wrap.classList.add('dragging');
+  // Build the original set
+  PORTFOLIO.forEach(item => reel.appendChild(createItem(item)));
+
+  // Duplicate every item for a seamless infinite loop.
+  // With margin-right on every item, -50% translateX lands exactly
+  // at the start of the second set, creating a perfect loop.
+  [...reel.children].forEach(el => {
+    const clone = el.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    reel.appendChild(clone);
   });
 
-  document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    reel.style.transform = `translateX(${startTX + (e.clientX - startX)}px)`;
-  });
-
-  document.addEventListener('mouseup', () => {
-    if (!isDragging) return;
-    isDragging = false;
-    wrap.classList.remove('dragging');
-    // Read position from inline style (animation is 'none' so computed = inline)
-    resumeFrom(new DOMMatrix(reel.style.transform).m41);
-  });
-
-  // Pause scroll while hovering a card
-  reel.addEventListener('mouseover', (e) => {
-    if (!isDragging && e.target.closest('.reel-item'))
-      reel.style.animationPlayState = 'paused';
-  });
-  reel.addEventListener('mouseout', (e) => {
-    if (!isDragging && !e.relatedTarget?.closest('.reel-item'))
-      reel.style.animationPlayState = 'running';
-  });
+  // Drive speed from item count so adding more items keeps pace consistent
+  const oneSetWidth = PORTFOLIO.length * (ITEM_W + ITEM_GAP);
+  reel.style.animationDuration = `${(oneSetWidth / SPEED).toFixed(1)}s`;
 })();
 
 /* ─────────────────────────────────────────────
-   CUSTOM CURSOR
+   CARD TILT ON HOVER
    ───────────────────────────────────────────── */
-(function initCursor() {
-  const cursor    = document.getElementById('cursor');
-  const cursorDot = document.getElementById('cursor-dot');
-  if (!cursor || !cursorDot) return;
+(function initCardTilt() {
+  const configs = [
+    { selector: '.service-card', maxTilt: 7,  lift: -6 },
+    { selector: '.demo-card',    maxTilt: 5,  lift: -5 },
+  ];
 
-  let mouseX = window.innerWidth  / 2;
-  let mouseY = window.innerHeight / 2;
-  let curX   = mouseX;
-  let curY   = mouseY;
-  let raf;
+  configs.forEach(({ selector, maxTilt, lift }) => {
+    document.querySelectorAll(selector).forEach(card => {
+      function applyTilt(clientX, clientY) {
+        const rect = card.getBoundingClientRect();
+        const px   = (clientX - rect.left) / rect.width;
+        const py   = (clientY - rect.top)  / rect.height;
+        const rx   = (0.5 - py) * maxTilt * 2;
+        const ry   = (px - 0.5) * maxTilt * 2;
+        card.style.transform =
+          `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(${lift}px)`;
+      }
 
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    cursorDot.style.left = mouseX + 'px';
-    cursorDot.style.top  = mouseY + 'px';
-  });
+      card.addEventListener('mouseenter', (e) => {
+        card.style.transition = 'transform .1s ease-out';
+        applyTilt(e.clientX, e.clientY);
+      });
 
-  // Smooth lag follow for the ring
-  function tick() {
-    curX += (mouseX - curX) * 0.1;
-    curY += (mouseY - curY) * 0.1;
-    cursor.style.left = curX + 'px';
-    cursor.style.top  = curY + 'px';
-    raf = requestAnimationFrame(tick);
-  }
-  raf = requestAnimationFrame(tick);
+      card.addEventListener('mousemove', (e) => {
+        applyTilt(e.clientX, e.clientY);
+      });
 
-  // Expand ring on interactive elements
-  const hoverEls = document.querySelectorAll(
-    'a, button, .service-card, .reel-item, .pill, input, textarea'
-  );
+      card.addEventListener('mouseleave', (e) => {
+        // The scroll-reveal entrance animation shifts cards up to 28px as
+        // they fade in. If that shift carries the card out from under a
+        // stationary cursor, the browser fires a genuine mouseleave even
+        // though the user never moved — re-check against the card's
+        // current rect before clearing the tilt, so reveal motion can't
+        // cancel the very first hover.
+        const rect = card.getBoundingClientRect();
+        const stillInside =
+          e.clientX >= rect.left && e.clientX <= rect.right &&
+          e.clientY >= rect.top  && e.clientY <= rect.bottom;
+        if (stillInside) return;
 
-  hoverEls.forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-  });
-
-  // Hide when leaving window
-  document.addEventListener('mouseleave', () => {
-    cursor.style.opacity    = '0';
-    cursorDot.style.opacity = '0';
-  });
-
-  document.addEventListener('mouseenter', () => {
-    cursor.style.opacity    = '1';
-    cursorDot.style.opacity = '1';
+        card.style.transition = '';
+        card.style.transform  = '';
+      });
+    });
   });
 })();
 

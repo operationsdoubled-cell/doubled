@@ -24,14 +24,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-  <!-- Custom cursor -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-dot" id="cursor-dot"></div>
+  <!-- Grain texture overlay -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
 
   <!-- ─── Navigation ─── -->
   <nav class="nav" id="nav">
@@ -53,12 +53,8 @@
   <!-- ─── Hero ─── -->
   <section class="hero" id="home">
     <div class="hero-bg">
-      <div class="hero-orb orb-purple"></div>
-      <div class="hero-orb orb-blue"></div>
-      <div class="hero-orb orb-pink"></div>
-      <div class="hero-orb orb-green"></div>
+      <div class="hero-wash"></div>
       <div class="hero-grid"></div>
-      <div class="hero-noise"></div>
     </div>
 
     <div class="hero-content">
@@ -68,8 +64,8 @@
       </div>
 
       <h1 class="hero-title">
-        We build <span class="grad-text-1">websites</span><br>
-        that actually <span class="grad-text-2">convert.</span>
+        We build <span class="lt-grad-blue">websites</span><br>
+        that actually <span class="lt-grad-mag">convert.</span>
       </h1>
 
       <p class="hero-sub">
@@ -83,17 +79,17 @@
 
       <div class="hero-stats">
         <div class="stat">
-          <span class="stat-num grad-text-1">50+</span>
+          <span class="stat-num lt-grad-blue">50+</span>
           <span class="stat-label">Projects Delivered</span>
         </div>
         <div class="stat-rule"></div>
         <div class="stat">
-          <span class="stat-num grad-text-3">100%</span>
+          <span class="stat-num lt-teal">100%</span>
           <span class="stat-label">Client Satisfaction</span>
         </div>
         <div class="stat-rule"></div>
         <div class="stat">
-          <span class="stat-num grad-text-2">5★</span>
+          <span class="stat-num lt-grad-mag">5★</span>
           <span class="stat-label">Average Rating</span>
         </div>
       </div>
@@ -203,12 +199,7 @@
 
       <div class="portfolio-reel-wrap">
         <div class="portfolio-reel" id="portfolio-reel">
-          <div class="reel-item"><img src="assets/images/alltree.png"          alt="Alltree"              loading="lazy" draggable="false"></div>
-          <div class="reel-item"><img src="assets/images/van-and-man-hero.png" alt="Van &amp; Man Removals" loading="lazy" draggable="false"></div>
-          <div class="reel-item"><img src="assets/images/powerclean-hero.png"  alt="PowerClean"           loading="lazy" draggable="false"></div>
-          <div class="reel-item" aria-hidden="true"><img src="assets/images/alltree.png"          alt="" loading="lazy" draggable="false"></div>
-          <div class="reel-item" aria-hidden="true"><img src="assets/images/van-and-man-hero.png" alt="" loading="lazy" draggable="false"></div>
-          <div class="reel-item" aria-hidden="true"><img src="assets/images/powerclean-hero.png"  alt="" loading="lazy" draggable="false"></div>
+          <!-- Populated by js/main.js -->
         </div>
       </div>
 
