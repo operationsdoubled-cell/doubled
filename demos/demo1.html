@@ -572,7 +572,67 @@
       background: var(--accent);
       margin: 24px 0;
     }
+    /* ===== RESPONSIVE / MOBILE ===== */
+    img { max-width: 100%; }
 
+    @media (max-width: 900px) {
+      body { overflow-x: hidden; }
+      section { padding: 72px 32px; }
+      nav { padding: 20px 32px; }
+
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 40px 32px 56px; }
+      .hero-right { height: 420px; }
+
+      .about,
+      .services-grid,
+      .testimonials-grid,
+      .contact,
+      .portfolio-grid { grid-template-columns: 1fr; }
+
+      .about { gap: 48px; }
+      .testimonials-grid { gap: 16px; }
+
+      .services-header,
+      .portfolio-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+
+      .port-item:first-child { grid-row: auto; }
+      .port-item img,
+      .port-item:first-child img { min-height: 280px; }
+
+      footer { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 24px; }
+      .footer-copy { text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      body { font-size: 14px; }
+      section { padding: 56px 20px; }
+      nav { padding: 16px 20px; }
+
+      /* simple mobile nav: hide the inline menu, keep logo + Book button
+         (the same links still live in the footer) */
+      .nav-links { display: none; }
+      .nav-cta { padding: 10px 18px; font-size: 11px; }
+
+      .hero { padding-top: 72px; min-height: auto; }
+      .hero-left { padding: 32px 20px 48px; }
+      .hero-title { font-size: 44px; }
+      .hero-sub { font-size: 14px; margin-bottom: 32px; }
+      .btn-group { flex-direction: column; align-items: flex-start; gap: 18px; }
+
+      .hero-right { height: 340px; }
+      .hero-float { left: 16px; bottom: 16px; padding: 18px 20px; width: 160px; }
+      .hero-float-num { font-size: 34px; }
+
+      .about-img:first-child { margin-top: 0; }
+      .about-stat-row { flex-wrap: wrap; gap: 28px; }
+
+      /* show the hover-only captions on touch screens */
+      .port-overlay { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 55%); }
+
+      .contact { gap: 48px; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 20px; }
+    }
 
     /* ── additional mobile fixes ── */
     @media (max-width: 900px) {
