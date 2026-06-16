@@ -946,6 +946,17 @@ h1, h2, h3, h4 {
   user-select: none;
 }
 
+/* Static preview image — shown on mobile instead of iframe */
+.demo-static-preview {
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  position: absolute;
+  inset: 0;
+}
+
 /* Hover overlay — opens demo on click */
 .demo-overlay {
   position: absolute;
@@ -1018,6 +1029,21 @@ h1, h2, h3, h4 {
 
 @media (max-width: 768px) {
   .demos-grid { grid-template-columns: 1fr; }
+
+  /* Replace scaled iframe with crisp static screenshot on mobile */
+  .demo-frame-wrap {
+    aspect-ratio: 16 / 10;
+    height: auto;
+  }
+  .demo-frame        { display: none; }
+  .demo-static-preview { display: block; }
+
+  /* Always show the CTA on touch — no hover state on mobile */
+  .demo-overlay { background: rgba(0, 0, 0, 0.32); }
+  .demo-cta {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ─── About ─── */

@@ -284,9 +284,15 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xlgkazgq';
   if (!wraps.length) return;
 
   function scale() {
+    const mobile = window.innerWidth <= 768;
     wraps.forEach(wrap => {
       const frame = wrap.querySelector('.demo-frame');
       if (!frame) return;
+      if (mobile) {
+        frame.style.transform = '';
+        wrap.style.height     = '';
+        return;
+      }
       const s = wrap.offsetWidth / 1440;
       frame.style.transform = `scale(${s})`;
       wrap.style.height     = Math.round(900 * s) + 'px';
