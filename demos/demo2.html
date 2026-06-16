@@ -723,6 +723,38 @@
     }
 
     .footer-nav a:hover { color: var(--orange); }
+
+    /* ── mobile responsive ── */
+    img { max-width: 100%; }
+
+    @media (max-width: 900px) {
+      body { overflow-x: hidden; }
+      nav { padding: 0 32px; }
+      section { padding: 72px 32px; }
+      .hero { padding: 100px 32px 60px; }
+      .hero-image-col { display: none; }
+      .hero-stats { gap: 32px; flex-wrap: wrap; margin-top: 40px; padding-top: 32px; }
+      .classes-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .classes-grid { grid-template-columns: repeat(2, 1fr); }
+      .trainers-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 480px; }
+      .testimonial-strip { padding: 60px 32px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      footer { padding: 32px; }
+    }
+
+    @media (max-width: 600px) {
+      body { font-size: 14px; }
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      section { padding: 56px 20px; }
+      .hero { padding: 80px 20px 48px; }
+      .hero-stats { gap: 20px; margin-top: 32px; padding-top: 24px; }
+      .hero-cta-row { flex-direction: column; align-items: flex-start; }
+      .classes-grid { grid-template-columns: 1fr; }
+      .testimonial-strip { padding: 48px 20px; }
+      footer { padding: 24px 20px; }
+    }
   </style>
 </head>
 <body>

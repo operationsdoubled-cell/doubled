@@ -742,6 +742,48 @@
     }
 
     .footer-copy { font-size: 13px; color: rgba(253,248,240,0.35); }
+
+    /* ── mobile responsive ── */
+    img { max-width: 100%; }
+
+    @media (max-width: 900px) {
+      body { overflow-x: hidden; }
+      nav { padding: 0 32px; }
+      section { padding: 72px 32px; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 60px 32px; }
+      .hero-right { min-height: 320px; }
+      .opening-band { padding: 16px 32px; }
+      .about { grid-template-columns: 1fr; gap: 40px; }
+      .about-floating-card { right: 0; }
+      .menu-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .menu-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .location-section { grid-template-columns: 1fr; }
+      .location-info { padding: 60px 32px; }
+      .location-map { min-height: 260px; }
+      .newsletter { padding: 60px 32px; }
+      footer { padding: 40px 32px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+
+    @media (max-width: 600px) {
+      body { font-size: 14px; }
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      section { padding: 56px 20px; }
+      .hero-left { padding: 40px 20px; }
+      .hero-right { min-height: 240px; }
+      .hero-cta-row { flex-direction: column; align-items: flex-start; }
+      .hero-perks { gap: 20px; flex-wrap: wrap; }
+      .opening-band { padding: 16px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .location-info { padding: 48px 20px; }
+      .newsletter { padding: 48px 20px; }
+      .newsletter-form { flex-direction: column; }
+      footer { padding: 32px 20px; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
